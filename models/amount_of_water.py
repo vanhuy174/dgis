@@ -33,7 +33,7 @@ class AmountOfWater(models.Model):
         for rec in self:
             rec.consume = rec.csm - rec.csc
             print("Ahihi")
-   
+
 
     @api.depends('household_id.area','household_id.pur_use')
     def _tinh_don_gia(self):
