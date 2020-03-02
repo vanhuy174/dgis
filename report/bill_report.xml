@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="customer_order_document">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context({'lang':doc.household_id.lang})"/>
+                <br/>
+                <div class="row" style="font-size: 10px; line-height: 10px;">
+                    <div class="col-5" align="center">
+                        <p style="font-size: 15px;"><b><span t-field="doc.company_id"/><br/></b></p>
+                        <p>Địa chỉ: Tầng 1, nhà 17T7, Khu ĐT Trung Hóa Nhân Chính</p>
+                        <p>Phường Nhân Chính, Quận Thanh Xuân</p>
+                        <p>Thành phố Hà Nội, Việt Nam</p>
+                    </div>
+                    <div class="col-4" align="center">
+                        <p style="font-size: 15px;"><b>HÓA ĐƠN GIÁ TRỊ GIA TĂNG</b></p>
+                        <p style="font-size: 15px;"><b>(TIỀN NƯỚC)</b></p>
+                        <p>Bản thể hiện của hóa đơn điện tử</p>
+                        <p>Tháng <span t-field="doc.month"/> năm 2020</p>
+                    </div>
+                    <div class="col-3" align="left">
+                        <p><b>Mẫu số: <span t-field="doc.code"/></b></p>
+                        <p>Mã số thuế: <span t-field="doc.tax_code"/></p>
+                        <p>Ký hiệu: <b style="font-size: 15px;"><span t-field="doc.sign"/></b></p>
+                        <p>Số: <b style="font-size: 15px;"><span t-field="doc.number"/></b></p>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" style="font-size: 10px;">
+                    <div class="col-12">
+                        <p><b>Tên, địa chỉ khách hàng</b></p>
+                    </div>
+                </div>
+                <div class="row" style="font-size: 10px;">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td rowspan="5" colspan="3" width="60%">
+                                <p>Họ và tên: <b><span t-field="doc.household_id"/></b></p>
+                                <p>Địa chỉ: <b><span t-field="doc.apart_num"/>, <span t-field="doc.street"/>, <span t-field="doc.town"/>, <span t-field="doc.district"/>,
+                                    <span t-field="doc.province"/></b></p>
+                                <p>Mã số thuế: <b><span t-field="doc.household_id.tax_id"/></b></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: unset; text-align: right;">Số hộ sử dụng nước</td>
+                            <td><span t-field="doc.household_id.user_num"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: unset; text-align: right;">Thời gian sử dụng</td>
+                            <td><span t-field="doc.from_date"/> - <span t-field="doc.to_date"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: unset; text-align: right;">Ngày hóa đơn</td>
+                            <td><span t-field="doc.create_at_bill"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: unset; text-align: right;">Ngày ghi - Số đọc</td>
+                            <td><span t-field="doc.create_at_water"/> - D7742</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row" style="font-size: 10px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Số đọc tháng này</th>
+                                <th>Số đọc tháng trước</th>
+                                <th>Tổng tiêu thụ</th>
+                                <th>Định mức tiêu thụ</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.amount_of_water_line" t-as="line">
+
+                                <tr>
+<!--                                    <t t-if="not line.display_type">-->
+                                    <td><span t-field="line.csm"/></td>
+                                    <td><span t-field="line.csc"/></td>
+                                    <td><span t-field="line.consume"/></td>
+                                    <td><span t-field="line.consume"/></td>
+                                    <td><span t-field="line.price"/></td>
+                                    <td><span t-field="line.price_subtotal"/></td>
+<!--                                     </t>-->
+                                </tr>
+    <!--                            <tr>-->
+    <!--                                <td></td>-->
+    <!--                                <td></td>-->
+    <!--                                <td></td>-->
+    <!--                                <td>8</td>-->
+    <!--                                <td>8000</td>-->
+    <!--                                <td>80000</td>-->
+    <!--                            </tr>-->
+
+                            </t>
+                            <tr>
+                                <td colspan="3" rowspan="7" align="center">
+                                    ĐƠN VỊ BÁN HÀNG
+                                </td>
+                                <td colspan="3">
+                                    <div style="float: left;">Cộng</div>
+                                    <div align="right"><span t-field="doc.amount_untax"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">- Phí bảo vệ môi trường đối với NTSH (10%)</td>
+                                <td align="right"><span t-field="doc.tax_env"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">- Tiền thuế VAT (5%)</td>
+                                <td align="right"><span t-field="doc.tax_vat"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="right"><b>TỔNG CỘNG</b></td>
+                                <td align="right"><span t-field="doc.amount_total"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row col-12" style="font-size: 10px;">
+                    <p>Số tiền bằng chữ: <b><span t-field="doc.note"/></b></p><br/>
+                </div>
+                <div class="row col-12" style="font-size: 10px;">
+                    <p>Hóa đơn điện tử tra cứu tại <b><i>domain.com/search</i></b>. Mã tra cứu hóa đơn: <b><i>A4A2A3C8</i></b></p>
+                </div>
+            </t>
+        </template>
+
+        <template id="order_print_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="custom_water.customer_order_document"/>
+                </t>
+            </t>
+        </template>
+
+        <!-- QWeb Reports -->
+        <report
+                id="bill_basic_report"
+                model="cmsw.bill"
+                string="Export bill"
+                report_type="qweb-pdf"
+                name="custom_water.order_print_template"
+                attachment_use="False"
+                file="custom_water.order_print_template"
+        />
+    </data>
+</odoo>

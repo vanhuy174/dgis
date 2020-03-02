@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <menuitem id="cmsw_root_menu" name="Customer Water" sequence="1"/>
+
+                <menuitem id="cmsw_customer_menu" name="Khách hàng" parent="cmsw_root_menu"
+                        sequence="2"/>
+                        <menuitem id="cmsw_household_menu" name="Hộ gia đình" parent="cmsw_customer_menu"
+                            action="cmsw_household_act" sequence="25"/>
+                        <menuitem id="cmsw_member_fam_menu" name="Thành viên" parent="cmsw_customer_menu"
+                            action="cmsw_member_fam_act" sequence="30"/>
+
+                <menuitem id="cmsw_bill_menu" name="Tiêu thụ" parent="cmsw_root_menu"
+                          sequence="5"/>
+                        <menuitem id="cmsw_bill_child_menu" name="Hóa đơn" parent="cmsw_bill_menu"
+                            action="cmsw_bill_act" sequence="10"/>
+                        <menuitem id="cmsw_amount_of_water_menu" name="Số nước" parent="cmsw_bill_menu"
+                            action="cmsw_amount_of_water_act" sequence="13"/>
+
+                <menuitem id="cmsw_area_menu" name="Khu vực" parent="cmsw_root_menu"
+                          sequence="6"/>
+                        <menuitem id="cmsw_address_menu" name="Address" parent="cmsw_area_menu"
+                            action="cmsw_address_act" sequence="35"/>
+
+            <menuitem id="cmsw_report_menu" name="Báo cáo/Thống kê" parent="cmsw_root_menu"
+                           sequence="10"/>
+                        <menuitem
+                            id="amount_of_water_reporting_menu"
+                            name="Thống kê lượng nước tiêu thụ"
+                            parent="cmsw_report_menu"
+                            action="amount_of_water_reporting_act"
+                            sequence="11"/>
+
+                <menuitem id="cmsw_config_menu" name="Cấu hình" parent="cmsw_root_menu"
+                     sequence="15"/>
+                        <menuitem id="cmsw_users_menu" name="Users" parent="cmsw_config_menu"
+                            action="cmsw_users_act" sequence="20"/>
+
+    </data>
+</odoo>

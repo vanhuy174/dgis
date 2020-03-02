@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cmsw_amount_of_water_form" model="ir.ui.view">
+            <field name="name">cmsw.amount_of_water.form</field>
+            <field name="model">cmsw.amount_of_water</field>
+            <field name="arch" type="xml">
+                <form string="Tháng">
+                    <form string="Sales Order" class="o_sale_order">
+                        <header>
+<!--                            <button name="action_quotation_send" string="Send by Email" type="object"-->
+<!--                                    class="btn-primary"/>-->
+                            <button name="action_done" id="action_done"
+                                    string="Confirm" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['done','draft'])]}"/>
+<!--                                    groups="customer_imus.customer_group_manager"-->
+                            <button name="action_cancel" states="draft,done" type="object" string="Cancel"/>
+                            <button name="action_done" type="object" string="Done"
+                                    attrs="{'invisible': [('state', '=','done')]}"
+                                    help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."/>
+                            <button name="action_draft" states="cancel" type="object" string="Draft"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                        </header>
+                    </form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="month"/>
+                            <h1>
+                                <field name="month"/>
+                            </h1>
+                        </div>
+                        <group string="Thông tin">
+                            <group>
+                                <field name="household_id"/>
+                                <label for="date" string="Thời gian sử dụng"/>
+                                <div class="o_address_format">
+                                    <field name="from_date" placeholder="Từ ngày..." class="o_address_state" options="{&quot;no_open&quot;: True}"/>
+                                    <span>-</span>
+                                    <field name="to_date" placeholder="Đến ngày..." class="o_address_zip" style="width: 200px; margin-left:7px;"/>
+                                </div>
+<!--                                <field name="bill_id"/>-->
+                            </group>
+                            <group>
+                                <field name="create_at"/>
+                                <field name="update_at"/>
+                                <field name="user_id"/>
+                            </group>
+                        </group>
+                        <group string="Thông tin khác">
+                            <div class="row" style="font-size: 15px;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Chỉ số mới</th>
+                                            <th>Chỉ số cũ</th>
+                                            <th>Tổng tiêu thụ</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td><field name="csm"/></td>
+                                                <td><field name="csc"/></td>
+                                                <td><field name="consume"/></td>
+                                                <td><field name="price"/></td>
+                                                <td><field name="price_subtotal"/></td>
+                                            </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+<!--                             <field name="csc"/>-->
+<!--                             <field name="csm"/>-->
+<!--                             <field name="consume"/>-->
+<!--                             <field name="price"/>-->
+<!--                             <field name="price_subtotal"/>-->
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="cmsw_amount_of_water_tree" model="ir.ui.view">
+            <field name="name">cmsw.amount_of_water.tree</field>
+            <field name="model">cmsw.amount_of_water</field>
+            <field name="arch" type="xml">
+                <tree string="Số nước" colors="blue:usage=='view'; darkred:usage=='internal'">
+                    <field name="household_id"/>
+                    <field name="month" />
+                    <field name="from_date" />
+                    <field name="to_date" />
+                    <field name="csc" />
+                    <field name="csm" />
+                    <field name="consume"/>
+                    <field name="price"/>
+                    <field name="user_id"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="cmsw_amount_of_water_act" model="ir.actions.act_window">
+            <field name="name">Số nước</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cmsw.amount_of_water</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    New household
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
