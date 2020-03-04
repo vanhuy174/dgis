@@ -60,16 +60,6 @@
             <field name="perm_unlink" eval="0"/>
             <field name="groups" eval="[(4, ref('customer_group_area'))]"/>
         </record>
-<!--        <record id="employee_area_rule5" model="ir.rule">-->
-<!--            <field name="name">Nhân viên khu vực sẽ chỉ được xem user trong khu vực quản lý</field>-->
-<!--            <field ref="model_cmsw_address" name="model_id"/>-->
-<!--            <field name="domain_force">[('user_id.address_id.id', '=', user.address_id.id)]</field>-->
-<!--            <field name="perm_write" eval="0"/>-->
-<!--            <field name="perm_create" eval="0"/>-->
-<!--            <field name="perm_read" eval="1"/>-->
-<!--            <field name="perm_unlink" eval="0"/>-->
-<!--            <field name="groups" eval="[(4, ref('customer_group_area'))]"/>-->
-<!--        </record>-->
 
 
 <!--        PHÂN QUYỀN CHO NHÂN VIÊN NHẬP LIỆU-->

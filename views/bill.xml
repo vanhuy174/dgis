@@ -52,21 +52,6 @@
                                 <p style="font-size: 13px;">Số: <b style="font-size: 15px;"><field name="number" readonly="1"/></b></p>
                             </div>
                         </div>
-<!--                        <div class="oe_button_box" name="button_box">-->
-<!--                            <field name="picking_ids" invisible="1"/>-->
-<!--                            <button type="object"-->
-<!--                                    name="action_view_delivery"-->
-<!--                                    class="oe_stat_button"-->
-<!--                                    attrs="{'invisible': [('delivery_count', '=', 0)]}"-->
-<!--                                    icon="fa-truck">-->
-<!--                                <field name="delivery_count" widget="statinfo" string="Delivery"/>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <div class="oe_title">-->
-<!--                            <h1>-->
-<!--                                <field name="number" readonly="1"/>-->
-<!--                            </h1>-->
-<!--                        </div>-->
 
                         <group>
                             <label for="street" string="Tên, Địa chỉ khách hàng" style="font-weight:bold"/>
@@ -101,112 +86,6 @@
                                         mode="tree,kanban"
 
                                 >
-<!--                                    <form>-->
-<!--                                        <field name="display_type" invisible="1"/>-->
-<!--                                        &lt;!&ndash;-->
-<!--                                            We need the sequence field to be here for new lines to be added at the correct position.-->
-<!--                                            TODO: at some point we want to fix this in the framework so that an invisible field is not required.-->
-<!--                                        &ndash;&gt;-->
-<!--                                        <field name="sequence" invisible="1"/>-->
-<!--                                        <group>-->
-<!--                                            <group attrs="{'invisible': [('display_type', '!=', False)]}">-->
-<!--                                                <field name="product_updatable" invisible="1"/>-->
-<!--                                                    <field name="product_id"-->
-<!--                                                       context="{'customer_id':parent.customer_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"-->
-<!--                                                       attrs="{-->
-<!--                                                    'readonly': [('product_updatable', '=', False)],-->
-<!--                                                    'required': [('display_type', '=', False)],-->
-<!--                                                }"-->
-<!--                                                       force_save="1"-->
-<!--                                                />-->
-<!--                                                <field name="invoice_status" invisible="1"/>-->
-<!--                                                <field name="qty_to_invoice" invisible="1"/>-->
-<!--                                                <field name="qty_delivered_manual" invisible="1"/>-->
-<!--                                                <field name="qty_delivered_method" invisible="1"/>-->
-<!--                                                <field name="price_total" invisible="1"/>-->
-<!--                                                <field name="price_tax" invisible="1"/>-->
-<!--                                                <field name="price_subtotal" invisible="1"/>-->
-<!--                                                <label for="product_uom_qty" string="Ordered Quantity"/>-->
-<!--                                                <div>-->
-<!--                                                    <field-->
-<!--                                                            context="{'customer_id':parent.customer_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"-->
-<!--                                                            name="product_uom_qty" class="oe_inline"/>-->
-<!--                                                    <field-->
-<!--                                                            name="product_uom"-->
-<!--                                                            force_save="1"-->
-<!--                                                            groups="uom.group_uom"-->
-<!--                                                            class="oe_inline oe_no_button"-->
-<!--                                                            attrs="{-->
-<!--                                                        'readonly': [('state', 'in', ('sale', 'done', 'cancel'))],-->
-<!--                                                        'required': [('display_type', '=', False)],-->
-<!--                                                    }"-->
-<!--                                                    />-->
-<!--                                                </div>-->
-<!--                                                <label for="qty_delivered" string="Delivered Quantity"-->
-<!--                                                       attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>-->
-<!--                                                <div attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}">-->
-<!--                                                    <field name="qty_delivered"-->
-<!--                                                           attrs="{'readonly': [('qty_delivered_method', '!=', 'manual')]}"/>-->
-<!--                                                </div>-->
-<!--                                                <label for="qty_invoiced" string="Invoiced Quantity"-->
-<!--                                                       attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>-->
-<!--                                                <div attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}">-->
-<!--                                                    <field name="qty_invoiced"-->
-<!--                                                           attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>-->
-<!--                                                </div>-->
-<!--                                                <field name="price_unit" invisible="1"/>-->
-<!--&lt;!&ndash;                                                <field name="cost_unit" invisible="1"/>&ndash;&gt;-->
-<!--                                                <label for="discount" groups="sale.group_discount_per_so_line"/>-->
-<!--                                                <div name="discount" groups="sale.group_discount_per_so_line">-->
-<!--                                                    <field name="discount" class="oe_inline"/>-->
-<!--                                                    %%-->
-<!--                                                </div>-->
-<!--                                                &lt;!&ndash;-->
-<!--                                                    We need the sequence field to be here-->
-<!--                                                    because we want to be able to overwrite the default sequence value in the JS-->
-<!--                                                    in order for new lines to be added at the correct position.-->
-<!--                                                    NOTE: at some point we want to fix this in the framework so that an invisible field is not required.-->
-<!--                                                &ndash;&gt;-->
-<!--                                                <field name="sequence" invisible="1"/>-->
-<!--                                            </group>-->
-<!--                                            <group attrs="{'invisible': [('display_type', '!=', False)]}">-->
-<!--                                                <field name="tax_id" widget="many2many_tags"-->
-<!--                                                       options="{'no_create': True}"-->
-<!--                                                       context="{'search_view_ref': 'account.account_tax_view_search'}"-->
-<!--                                                       domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"-->
-<!--                                                       attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>-->
-<!--                                                <label for="customer_lead"/>-->
-<!--                                                <div>-->
-<!--                                                    <field name="customer_lead" class="oe_inline"/>-->
-<!--                                                    days-->
-<!--                                                </div>-->
-<!--                                                <label for="analytic_tag_ids" groups="analytic.group_analytic_tags"/>-->
-<!--                                                <div>-->
-<!--                                                    <field name="analytic_tag_ids" widget="many2many_tags"-->
-<!--                                                           groups="analytic.group_analytic_tags"-->
-<!--                                                           options="{'color_field': 'color'}"/>-->
-<!--                                                </div>-->
-<!--                                            </group>-->
-<!--                                        </group>-->
-<!--                                        <label for="name" string="Description"-->
-<!--                                               attrs="{'invisible': [('display_type', '!=', False)]}"/>-->
-<!--                                        <label for="name" string="Section Name (eg. Products, Services)"-->
-<!--                                               attrs="{'invisible': [('display_type', '!=', 'line_section')]}"/>-->
-<!--                                        <label for="name" string="Note"-->
-<!--                                               attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>-->
-<!--                                        <field name="name"/>-->
-<!--                                        <div groups="base.group_no_one"-->
-<!--                                             attrs="{'invisible': [('display_type', '!=', False)]}">-->
-<!--                                            <label for="invoice_lines"/>-->
-<!--                                            <field name="invoice_lines"/>-->
-<!--                                        </div>-->
-<!--                                        <field name="state" invisible="1"/>-->
-
-<!--                                    </form>-->
-<!--                                    &lt;!&ndash; This is inherited below to make the order lines non-editable (inline)-->
-<!--                                        for the members of some usability groups (packaging, event):-->
-<!--                                        Indeed in those cases we need a dialog because there are additional fields to input.-->
-<!--                                    &ndash;&gt;-->
                                     <tree>
                                         <field name="csc"  style="padding-left:250px;"/>
                                         <field name="csm" style="padding-left:250px;"/>
@@ -279,7 +158,7 @@
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    There is no examples click here to add new ModelTitle.
+                    Tạo hóa đơn đầu tiên
                 </p>
             </field>
         </record>

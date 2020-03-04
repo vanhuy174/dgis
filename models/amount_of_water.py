@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 
 class AmountOfWater(models.Model):
     _name = 'cmsw.amount_of_water'
@@ -14,6 +14,8 @@ class AmountOfWater(models.Model):
     csc = fields.Integer( string='Chỉ số cũ ', required=False, )
     csm = fields.Integer( string='Chỉ số mới', required=False)
     consume = fields.Integer( string='Tổng tiêu thụ', compute='_tinh_tieu_thu', store=True)
+    average = fields.Float()
+
     price = fields.Monetary( string='Đơn giá/m3 ', required=False, compute='_tinh_don_gia', store=True)
     create_at = fields.Date(string='Ngày ghi số nước', required=False)
     update_at = fields.Date( string='Thời gian cập nhập', required=False)
@@ -22,7 +24,8 @@ class AmountOfWater(models.Model):
     user_id = fields.Many2one(
         comodel_name='res.users',
         string='Người cập nhập',
-        required=False)
+        required=False,
+        compute="_auto_load_user_import")
     bill_id = fields.Many2one(
         comodel_name='cmsw.bill',
         string='Hóa đơn',
@@ -32,8 +35,33 @@ class AmountOfWater(models.Model):
     def _tinh_tieu_thu(self):
         for rec in self:
             rec.consume = rec.csm - rec.csc
-            print("Ahihi")
 
+    @api.depends("user_id")
+    def _auto_load_user_import(self):
+        for rec in self:
+            for line in rec.household_id.address_id.user_id:
+                if line.position == "nvnl":
+                    rec.user_id = line.id
+
+    @api.depends("csc", "csm")
+    def _canh_bao_nuoc(self):
+        for rec in self:
+            for line in rec.household_id:
+                print(line)
+
+    @api.constrains("consume")  # bắt ngoại lệ khi nhập số lượng
+    def _canh_bao_nuoc(self):
+        for rec in self:
+            average = 0.0
+            total = 0
+            count = 0
+            for line in rec.household_id.amount_water_id:
+                count += 1
+                total += line.consume
+                average = total/ count
+                temp = rec.consume - average
+                if temp > 50:
+                    raise exceptions.ValidationError(u"Lượng nước tiêu thụ tăng đột biến!")
 
     @api.depends('household_id.area','household_id.pur_use')
     def _tinh_don_gia(self):

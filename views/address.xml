@@ -2,6 +2,48 @@
 <odoo>
     <data>
 
+         <record id="cmsw_address_form" model="ir.ui.view">
+            <field name="name">cmsw.address.form</field>
+            <field name="model">cmsw.address</field>
+            <field name="arch" type="xml">
+                <form string="Địa chỉ">
+                    <sheet>
+<!--                        <field name="image" widget='image' class="oe_avatar"-->
+<!--                               options='{"preview_image": "image_medium"}' />-->
+<!--                        <div class="oe_title">-->
+<!--                            <label for="name"/>-->
+<!--                            <h1>-->
+<!--                                <field name="name" default_focus="1" palaceholder="Thành viên"/>-->
+<!--                            </h1>-->
+<!--                        </div>-->
+                        <group string="Khu vực quản lý">
+                            <group>
+                                <field name="town"/>
+                                <field name="district"/>
+                            </group>
+                            <group>
+                                <field name="province"/>
+                                <field name="area"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="household_id"/>
+<!--                            <field name="user_id"/>-->
+                            <field name="user_id"
+                                        widget="section_and_note_one2many"
+                                        mode="tree,kanban" readonly='True'>
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="login"/>
+                                            <field name="position"/>
+                                        </tree>
+                                    </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id="cmsw_address_act" model="ir.actions.act_window">
             <field name="name">Địa chỉ</field>
             <field name="type">ir.actions.act_window</field>
@@ -14,18 +56,6 @@
                 </p>
             </field>
         </record>
-<!--        <record id="cmsw_address_view_form" model="ir.ui.view">-->
-<!--            <field name="name">cmsw.address_view_form</field>-->
-<!--            <field name="model">cmsw.address</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <form string="form">-->
-<!--                    <sheet>-->
-<!--                        <group>-->
-<!--                            <field name="id" groups="customer_group_area"/>-->
-<!--                        </group>-->
-<!--                    </sheet>-->
-<!--                </form>-->
-<!--            </field>-->
-<!--        </record>-->
+
     </data>
 </odoo>

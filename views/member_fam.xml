@@ -8,8 +8,6 @@
             <field name="arch" type="xml">
                 <form string="Thành viên">
                     <sheet>
-<!--                        <field name="image" widget="image" class="oe_avatar" width="80" height="200" margin-right="50"/>-->
-<!--                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;}"/>-->
                         <field name="image" widget='image' class="oe_avatar"
                                options='{"preview_image": "image_medium"}' />
                         <div class="oe_title">
@@ -47,35 +45,6 @@
                             <field name="household_id" groups="custom_water.customer_group_area"/>
                             <field name="description" placeholder="Ghi chú ..." colspan="4"/>
                         </group>
-<!--                        <notebook>-->
-<!--                            <page string="Thông tin khách hàng">-->
-
-<!--                            </page>-->
-<!--                            <page string="Sổ hộ khẩu">-->
-<!--                                <group>-->
-<!--                                    <group>-->
-<!--                                    <field name="name_other"/>-->
-<!--                                    <field name="date_of_birth"/>-->
-<!--                                    <field name="gender"/>-->
-<!--                                    <field name="folk"/>-->
-<!--                                    <field name="religion"/>-->
-<!--                                    <field name="job"/>-->
-<!--                                </group>-->
-<!--                                <group>-->
-<!--                                        <label for="street" string="Quê quán"/>-->
-<!--                                        <div class="o_address_format">-->
-<!--                                            <field name="apart_num_h" placeholder="Số nhà..." class="o_address_street"/>-->
-<!--                                            <field name="street_h" placeholder="Tổ..." class="o_address_street"/>-->
-<!--                                            <field name="street2_h" placeholder="Đường..." class="o_address_street"/>-->
-<!--                                            <field name="town_h" class="o_address_state" placeholder="Phường" options="{&quot;no_open&quot;: True}"/>-->
-<!--                                            <field name="district_h" placeholder="Huyện" class="o_address_zip"/>-->
-<!--                                            <field name="city_h" placeholder="Thành phố" class="o_address_city"/>-->
-<!--                                        </div>-->
-<!--                                    <field name="nation"/>-->
-<!--                                </group>-->
-<!--                                </group>-->
-<!--                            </page>-->
-<!--                        </notebook>-->
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>

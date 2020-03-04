@@ -7,7 +7,7 @@ class User(models.Model):
     _description = ''
 
     name = fields.Char(string='Họ tên ')
-    email = fields.Char( string='Email')
+    login = fields.Char( string='Địa chỉ Email')
     phone = fields.Char( string='Số điện thoại')
     address_id = fields.Many2many( comodel_name='cmsw.address', string='Khu vực quản lý')
     # address_id = fields.Many2one(

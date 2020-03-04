@@ -39,7 +39,7 @@
                           parent="cmsw_root_menu"
                           sequence="6"/>
                         <menuitem id="cmsw_address_menu"
-                                  name="Address"
+                                  name="Địa chỉ"
                                   parent="cmsw_area_menu"
                                   action="cmsw_address_act"
                                   sequence="35"/>
@@ -63,7 +63,7 @@
                           sequence="15"
                           groups="customer_group_admin" />
                         <menuitem id="cmsw_users_menu"
-                                  name="Users"
+                                  name="Nhân viên"
                                   parent="cmsw_config_menu"
                                   action="cmsw_users_act"
                                   sequence="20"
