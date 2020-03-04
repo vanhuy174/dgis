@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_company_assign_simple_form" model="ir.ui.view">
+        <field name="name">res.company.assign.simplified.form</field>
+        <field name="model">res.company</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+                <form string="Company">
+                  <sheet>
+                    <field name="logo" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <notebook colspan="4">
+                        <page string="Thông tin chung">
+                            <group>
+                                <group>
+                                    <field name="partner_id" readonly="1" required="0" groups="base.group_no_one" invisible="1"/>
+                                    <label for="street" string="Address"/>
+                                    <div class="o_address_format">
+                                        <field name="street" placeholder="Số nhà..." class="o_address_street"/>
+                                        <field name="street2" placeholder="Tổ..." class="o_address_street"/>
+                                        <field name="city" placeholder="Phường" class="o_address_city"/>
+                                        <field name="state_id" class="o_address_state" placeholder="Tỉnh" options="{&quot;no_open&quot;: True}"/>
+                                        <field name="zip" placeholder="Mã bưu điện" class="o_address_zip"/>
+                                        <field name="country_id" placeholder="Quốc gia" class="o_address_country" options="{&quot;no_open&quot;: True}"/>
+                                    </div>
+                                    <field name="vat" string="Thuế"/>
+                                    <field name="company_registry" invisible="1"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" id="company_currency" context="{'active_test': False}" string="Đơn vị tiền tệ"/>
+                                </group>
+                                <group>
+                                    <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                                    <field name="email"/>
+                                    <field name="phone" string="Điện thoại"/>
+                                    <field name="parent_id" groups="base.group_multi_company"/>
+                                    <field name="sequence" invisible="1"/>
+                                    <field name="signature" widget='image'
+                                    width="500" height="400" margin-right="50"/>
+                                </group>
+                                <group name="social_media"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+        </field>
+        </record>
+
+        <record id="cmsw_res_company_act" model="ir.actions.act_window">
+            <field name="name">Công ty</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    New company
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

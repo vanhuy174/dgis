@@ -32,9 +32,9 @@
                         <div class="row" style="font-size: 10px; line-height: 10px;">
                             <div class="col-3" align="center" >
                                 <p style="font-size: 20px;"><b><field name="company_id" options="{'no_create': True}"/></b></p>
-                                <p style="font-size: 13px;">Địa chỉ: Tầng 1, nhà 17T7, Khu ĐT Trung Hóa Nhân Chính</p>
-                                <p style="font-size: 13px;"> Phường Nhân Chính, Quận Thanh Xuân</p>
-                                <p style="font-size: 13px;">Thành phố Hà Nội, Việt Nam</p>
+<!--                                <p style="font-size: 13px;">Địa chỉ: Tầng 1, nhà 17T7, Khu ĐT Trung Hóa Nhân Chính</p>-->
+<!--                                <p style="font-size: 13px;"> Phường Nhân Chính, Quận Thanh Xuân</p>-->
+<!--                                <p style="font-size: 13px;">Thành phố Hà Nội, Việt Nam</p>-->
                             </div>
                             <div class="col-4" align="center">
                                 <p style="font-size: 20px;"><b>HÓA ĐƠN GIÁ TRỊ GIA TĂNG</b></p>

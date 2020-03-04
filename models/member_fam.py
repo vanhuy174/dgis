@@ -21,7 +21,6 @@ class MemberFamily(models.Model):
     # address
     apart_num = fields.Char(string="Số nhà")
     street = fields.Char(string="Tổ/Xóm")
-    street2 = fields.Char(string="Đường")
     town = fields.Char(string="Phường/Thị trấn/Xã")
     district = fields.Char(string="Quận/Huyện")
     city = fields.Char(string="Tỉnh/Thành phố")
@@ -51,3 +50,16 @@ class MemberFamily(models.Model):
         "Avatar", default=_default_image, attachment=True,
         help="This field holds the image used as photo for the student, limited to 1024x1024px.")
 
+    @api.onchange('household_id')
+    @api.multi
+    def _onchange_address(self):
+        if self.household_id.apart_num:
+            self.apart_num = self.household_id.apart_num
+        if self.household_id.street:
+            self.street = self.household_id.street
+        if self.household_id.address_id:
+            self.town = self.household_id.address_id.town
+        if self.household_id.district:
+            self.district = self.household_id.district
+        if self.household_id.province:
+            self.city = self.household_id.province

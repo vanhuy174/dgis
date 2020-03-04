@@ -9,6 +9,7 @@ class Address(models.Model):
     district = fields.Char(string='Quận/Huyện', required=True)
     town = fields.Char(string="Phường/Thị trấn/Xã", required=True)
     household_id = fields.One2many(comodel_name='cmsw.household', inverse_name='address_id', string='Hộ gia đình', required=False)
+    user_id = fields.One2many(comodel_name='res.users', inverse_name='address_id', string='Người quản lý', required=False, readonly= True)
     area = fields.Selection(
         string='Khu vực',
         selection=[('vip', 'Khu vực 1'),

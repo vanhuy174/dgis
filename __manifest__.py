@@ -21,7 +21,8 @@
 
     # any module necessary for this one to work correctly
     'depends': ['mail',
-                'base'],
+                'base',
+                'crm'],
 
     # always loaded
     'data': [
@@ -35,7 +36,9 @@
         'report/bill_report.xml',
         'report/amount_of_water_report_graph.xml',
         'views/amount_of_water.xml',
+        'views/res_company_inherit.xml',
         'views/menu.xml',
+        'security/user_record_rule.xml',
         'security/custom_group_users.xml',
         'security/ir.model.access.csv',
     ],

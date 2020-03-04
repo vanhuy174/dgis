@@ -14,14 +14,14 @@ class AmountOfWater(models.Model):
     csc = fields.Integer( string='Chỉ số cũ ', required=False, )
     csm = fields.Integer( string='Chỉ số mới', required=False)
     consume = fields.Integer( string='Tổng tiêu thụ', compute='_tinh_tieu_thu', store=True)
-    price = fields.Integer( string='Đơn giá/m3 ', required=False, compute='_tinh_don_gia')
+    price = fields.Monetary( string='Đơn giá/m3 ', required=False, compute='_tinh_don_gia', store=True)
     create_at = fields.Date(string='Ngày ghi số nước', required=False)
     update_at = fields.Date( string='Thời gian cập nhập', required=False)
     price_subtotal = fields.Monetary( string='Thành tiền', required=False, compute='_tinh_thanh_tien', store=True)
     household_id = fields.Many2one( comodel_name='cmsw.household', string='Hộ gia đình', required=False)
     user_id = fields.Many2one(
         comodel_name='res.users',
-        string='User',
+        string='Người cập nhập',
         required=False)
     bill_id = fields.Many2one(
         comodel_name='cmsw.bill',
@@ -82,31 +82,4 @@ class AmountOfWater(models.Model):
         #     'state': 'draft',
         # })
         return self.write({'state': 'done'})
-    # @api.depends("csm", "month")
-    # def _tinh_chi_so_cu(self):
-    #     self._cr.execute("SELECT month FROM cmsw_amount_of_water ")
-    #     data = self._cr.fetchall()
-    #     for rec in self:
-    #         print(rec.month)
-    #         break;
-        #print(self[1].month)
-            #for i in range(rec[0].month):
-            #     print(i)
-            #     break
 
-            # for i in range(len(data)-1):
-            #     j=i+1
-            #     for j in range(len(data)):
-                    #if (data[j]>data[i]) and self.month[j]-self.month[i]==1:
-                #     self.csc = self.csm
-
-        #     if (data[i]-data[i-1])==1:
-        #          self.csc = self.csm
-        # print("=========+++++++++++++++")
-
-
-
-
-    # @api.onchanges('household_id.area', 'household_id.pur_use')
-    # def _update_don_gia(self):
-    #     return self._tinh_don_gia

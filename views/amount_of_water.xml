@@ -31,6 +31,8 @@
                         <group string="Thông tin">
                             <group>
                                 <field name="household_id"/>
+<!--                                <field name="household_id" groups="custom_water.cmsw_customer_group_import" />-->
+<!--                                <field name="household_id" groups="custom_water.cmsw_customer_group_area" />-->
                                 <label for="date" string="Thời gian sử dụng"/>
                                 <div class="o_address_format">
                                     <field name="from_date" placeholder="Từ ngày..." class="o_address_state" options="{&quot;no_open&quot;: True}"/>
@@ -90,6 +92,7 @@
             <field name="arch" type="xml">
                 <tree string="Số nước" colors="blue:usage=='view'; darkred:usage=='internal'">
                     <field name="household_id"/>
+<!--                    <field name="household_id" groups="custom_water.cmsw_customer_group_import" />-->
                     <field name="month" />
                     <field name="from_date" />
                     <field name="to_date" />

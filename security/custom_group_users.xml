@@ -8,11 +8,17 @@
             <field name="description">Access right for employees</field>
             <field name="sequence">5</field>
         </record>
-        <record id="customer_group_manager" model="res.groups">
-            <field name="name">Nhân viên quản trị</field>
+        <record id="customer_group_admin" model="res.groups">
+            <field name="name">Quản trị viên</field>
             <!--Inherit from internal user-->
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="category_id" ref="cmsw_customer_group"/>
+        </record>
+        <record id="customer_group_manager" model="res.groups">
+            <field name="name">Quản lý</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+<!--            <field name="users" eval="[(4, ref('base.group_user'))]"/>-->
             <field name="category_id" ref="cmsw_customer_group"/>
         </record>
         <record id="customer_group_area" model="res.groups">

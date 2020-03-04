@@ -32,7 +32,6 @@
                                 <div class="o_address_format">
                                     <field name="apart_num" placeholder="Số nhà..." class="o_address_street"/>
                                     <field name="street" placeholder="Tổ..." class="o_address_street"/>
-                                    <field name="street2" placeholder="Đường..." class="o_address_street"/>
                                     <field name="town" class="o_address_state" placeholder="Phường" options="{&quot;no_open&quot;: True}"/>
                                     <field name="district" placeholder="Huyện" class="o_address_zip"/>
                                     <field name="city" placeholder="Thành phố" class="o_address_city"/>
@@ -44,6 +43,8 @@
                         <group string="Thông tin khác">
                             <field name="relationship"/>
                             <field name="household_id"/>
+                            <field name="household_id" groups="custom_water.customer_group_import"/>
+                            <field name="household_id" groups="custom_water.customer_group_area"/>
                             <field name="description" placeholder="Ghi chú ..." colspan="4"/>
                         </group>
 <!--                        <notebook>-->

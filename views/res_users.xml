@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_users_assign_simple_form" model="ir.ui.view">
-        <field name="name"> Users Form</field>
+        <field name="name">res.users.assign.simplified.form</field>
         <field name="model">res.users</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
@@ -10,7 +10,7 @@
                 <sheet>
                     <field name="id" invisible="1"/>
                     <div class="alert alert-info text-center mb-3" attrs="{'invisible': [('id', '>', 0)]}" role="alert">
-                        You are inviting a new user.
+                        Tạo tài khoản mới
                     </div>
                     <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium"}'/>
                     <div class="oe_title">
@@ -19,27 +19,28 @@
                             <field name="name" required="1"/>
                         </h1>
 <!--                        <field name="email" invisible="1"/>-->
-                        <label for="email" class="oe_edit_only" string="Email Address"/>
+                        <label for="login" class="oe_edit_only" string="Email Address"/>
                         <h2>
-                            <field name="email"
+                            <field name="login"
                                    placeholder="email@yourcompany.com"/>
                         </h2>
 <!--                        <label for="company_id" class="oe_edit_only" groups="base.group_multi_company"/>-->
 <!--                        <field name="company_id" context="{'user_preference': 0}" groups="base.group_multi_company"/>-->
                     </div>
                     <group>
-                        <label for="groups_id" string="Access Rights"
-                               attrs="{'invisible': [('id', '>', 0)]}" groups="base.group_no_one"/>
-                        <div attrs="{'invisible': [('id', '>', 0)]}" groups="base.group_no_one">
-                            <field name="groups_id" readonly="1" widget="many2many_tags"
-                                   options="{'color_field': 'color'}" style="display: inline;"/>
-                            You will be able to define additional access rights by editing the newly created user under
-                            the Settings / Users menu.
-                        </div>
+<!--                        <label for="groups_id" string="Access Rights"-->
+<!--                               attrs="{'invisible': [('id', '>', 0)]}" groups="base.group_no_one"/>-->
+<!--                        <div attrs="{'invisible': [('id', '>', 0)]}" groups="base.group_no_one">-->
+<!--                            <field name="groups_id" readonly="1" widget="many2many_tags"-->
+<!--                                   options="{'color_field': 'color'}" style="display: inline;"/>-->
+<!--                            You will be able to define additional access rights by editing the newly created user under-->
+<!--                            the Settings / Users menu.-->
+<!--                        </div>-->
                         <field name="phone" widget="phone"/>
                         <field name="mobile" widget="phone"/>
-                        <field name="address_id"/>
                         <field name="position"/>
+                        <field name="address_id" attrs="{'invisible': [('position', 'not in', ['nvkv','nvnl'])]}"/>
+<!--                        <field name="address_id" groups="custom_water.customer_group_area"/>-->
                     </group>
                 </sheet>
             </form>
@@ -48,12 +49,12 @@
 
 
      <record id="view_users_assign_simple_tree" model="ir.ui.view">
-        <field name="name">Users Tree</field>
+        <field name="name">res.users.tree</field>
         <field name="model">res.users</field>
         <field name="arch" type="xml">
             <tree string="List users">
                 <field name="name"/>
-                <field name="address_id" />
+                <field name="address_id" widget="many2many_tags"/>
                 <field name="position"/>
             </tree>
         </field>
@@ -66,14 +67,14 @@
         <field name="res_model">res.users</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,kanban,form</field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='example_field']" position="replace">
-                    <field name="example_field2"/>
-                </xpath>
-                <xpath expr="//field[@name='example_field']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-            </field>
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='example_field']" position="replace">-->
+<!--                    <field name="example_field2"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='example_field']" position="attributes">-->
+<!--                    <attribute name="invisible">True</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
      </record>
      <record model="ir.actions.act_window.view" id="action_hr_voucher_confirmation2">
             <field name="sequence" eval="2"/>

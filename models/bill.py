@@ -174,3 +174,10 @@ class Bill(models.Model):
         self.filtered(lambda s: s.state == 'draft').write({'state': 'done'})
         return self.env.ref('custom_water.bill_basic_report') \
             .with_context({'discard_logo_check': True}).report_action(self)
+
+class Company(models.Model):
+
+    _inherit = 'res.company'
+    _description = ''
+
+    signature = fields.Binary(string='Chữ ký', attachment=True,)

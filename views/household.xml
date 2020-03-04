@@ -12,7 +12,7 @@
 <!--                        <field name="image" widget="image" class="oe_avatar" width="80" height="200" margin-right="50"/>-->
 <!--                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;}"/>-->
                         <field name="image" widget='image' class="oe_avatar"
-                               options='{"preview_image": "image_medium"}' />
+                               width="80" height="200" margin-right="50" />
 <!--                        <field name="photo" widget="image" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>-->
                         <div class="oe_title">
                             <field name="company_type" options="{'horizontal': true}" class="oe_edit_only"
@@ -29,7 +29,7 @@
                                 <field name="date_allow" attrs="{'invisible': [('is_company','=', True)]}"/>
                                 <field name="tax_id" placeholder="e.g. BE0477472701"
                                        attrs="{'invisible': [('is_company','=', False)]}"/>
-                                <field name="director" placeholder="Director"
+                                <field name="director" placeholder="Giám đốc..."
                                        attrs="{'invisible': [('is_company','=', False)]}"/>
                             </group>
                             <group>
@@ -37,7 +37,9 @@
                                 <div class="o_address_format">
                                     <field name="apart_num" placeholder="Số nhà..." class="o_address_street"/>
                                     <field name="street" placeholder="Tổ..." class="o_address_street"/>
-                                    <field name="address_id" class="o_address_state" placeholder="Phường" options='{"always_reload": True}'/>
+                                    <field name="address_id" class="o_address_state" placeholder="Phường" options='{"always_reload": True}' />
+                                    <field name="address_id" groups="custom_water.cmsw_customer_group_area, custom_water.cmsw_customer_group_import" />
+<!--                                    <field name="address_id" groups="custom_water.cmsw_customer_group_import" />-->
                                     <field name="district" placeholder="Huyện" class="o_address_zip" style="margin-right: 3px;" options='{"always_reload": True}'/>
                                     <field name="province" placeholder="Thành phố" class="o_address_zip" options='{"always_reload": True}'/>
                                 </div>
