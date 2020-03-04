@@ -38,9 +38,10 @@
         'views/amount_of_water.xml',
         'views/res_company_inherit.xml',
         'views/menu.xml',
-        'security/user_record_rule.xml',
         'security/custom_group_users.xml',
         'security/ir.model.access.csv',
+        'security/user_record_rule.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
