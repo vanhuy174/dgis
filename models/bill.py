@@ -121,6 +121,15 @@ class Bill(models.Model):
                 self.to_date = line.to_date
                 self.create_at_water = line.create_at
 
+    @api.onchange('company_id')
+    @api.multi
+    def _onchange_company(self):
+        if self.company_id.sign:
+            self.sign = self.company_id.sign
+        if self.company_id.vat:
+            self.tax_code = self.company_id.vat
+        if self.company_id.code:
+            self.code = self.company_id.code
     @api.depends("amount_total")
     def _doc_tong_tien(self):
         # self.note = "aaa"
@@ -180,4 +189,7 @@ class Company(models.Model):
     _inherit = 'res.company'
     _description = ''
 
+    name = fields.Char(string="Tên" )
     signature = fields.Binary(string='Chữ ký', attachment=True,)
+    code = fields.Char(string='Mẫu số', required=False)
+    sign = fields.Char(string='Kí hiệu', required=False)
