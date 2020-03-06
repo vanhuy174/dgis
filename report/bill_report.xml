@@ -7,22 +7,22 @@
                 <br/>
                 <div class="row" style="font-size: 10px; line-height: 10px;">
                     <div class="col-5" align="center">
-                        <p style="font-size: 15px;"><b><span t-field="doc.company_id"/><br/></b></p>
-                        <p>Địa chỉ: <span t-field="doc.company_id.street"/>, <span t-field="doc.company_id.street2"/></p>
-                        <p><span t-field="doc.company_id.city"/>, <span t-field="doc.company_id.state_id"/></p>
-                        <p>Thái Nguyên, Việt Nam</p>
+                        <p style="font-size: 15px;"><b>CÔNG TY CỔ PHẦN VIWACO</b></p>
+                        <p>Địa chỉ: Tầng 1, nhà 17T7, Khu ĐT Trung Hóa Nhân Chính</p>
+                        <p>Phường Nhân Chính, Quận Thanh Xuân</p>
+                        <p>Thành phố Hà Nội, Việt Nam</p>
                     </div>
                     <div class="col-4" align="center">
                         <p style="font-size: 15px;"><b>HÓA ĐƠN GIÁ TRỊ GIA TĂNG</b></p>
                         <p style="font-size: 15px;"><b>(TIỀN NƯỚC)</b></p>
                         <p>Bản thể hiện của hóa đơn điện tử</p>
-                        <p>Tháng <span t-field="doc.month"/> năm 2020</p>
+                        <p>Tháng 08 năm 2020</p>
                     </div>
                     <div class="col-3" align="left">
-                        <p><b>Mẫu số: <span t-field="doc.code"/></b></p>
-                        <p>Mã số thuế: <span t-field="doc.tax_code"/></p>
-                        <p>Ký hiệu: <b style="font-size: 15px;"><span t-field="doc.sign"/></b></p>
-                        <p>Số: <b style="font-size: 15px;"><span t-field="doc.number"/></b></p>
+                        <p><b>Mẫu số: 01T1S5DF1</b></p>
+                        <p>Mã số thuế: 11SA2D2151/151</p>
+                        <p>Ký hiệu: <b style="font-size: 15px;">SJD/1C</b></p>
+                        <p>Số: <b style="font-size: 15px;">15654PUS</b></p>
                     </div>
                 </div>
                 <br/>
@@ -140,11 +140,12 @@
         <report
                 id="bill_basic_report"
                 model="cmsw.bill"
-                string="Export bill"
+                string="Xuất hóa đơn"
                 report_type="qweb-pdf"
                 name="custom_water.order_print_template"
                 attachment_use="False"
                 file="custom_water.order_print_template"
+                header = "False"
         />
     </data>
 </odoo>

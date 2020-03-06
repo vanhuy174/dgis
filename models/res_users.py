@@ -22,3 +22,7 @@ class User(models.Model):
                     ('nvnl', 'Nhân viên nhập liệu '),
                     ], required=False )
 
+class Parner(models.Model):
+
+    _inherit = 'res.partner'
+    _translate = True

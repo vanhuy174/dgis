@@ -7,7 +7,9 @@
             <field name="model">cmsw.amount_of_water</field>
             <field name="arch" type="xml">
                 <pivot string="Phân tích">
-                    <field name="household_id" type="col"/>
+                    <field name="household_id" />
+                    <field name="consume"  type="measure"/>
+                    <field name="month"/>
     <!--                <field name="confirmation_date" interval="month" type="row"/>-->
                 </pivot>
             </field>
@@ -30,7 +32,7 @@
             <field name="name">Thống kê lượng nước tiêu thụ</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cmsw.amount_of_water</field>
-            <field name="view_mode">graph,pivot</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
         </record>
 
 

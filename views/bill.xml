@@ -30,11 +30,11 @@
 
                         <br/>
                         <div class="row" style="font-size: 10px; line-height: 10px;">
-                            <div class="col-3" align="center" >
-                                <p style="font-size: 20px;"><b><field name="company_id" options="{'no_create': True}"/></b></p>
-<!--                                <p style="font-size: 13px;">Địa chỉ: Tầng 1, nhà 17T7, Khu ĐT Trung Hóa Nhân Chính</p>-->
-<!--                                <p style="font-size: 13px;"> Phường Nhân Chính, Quận Thanh Xuân</p>-->
-<!--                                <p style="font-size: 13px;">Thành phố Hà Nội, Việt Nam</p>-->
+                            <div class="col-5" align="center">
+                                <p style="font-size: 15px;"><b>CÔNG TY CỔ PHẦN VIWACO</b></p>
+                                <p style="font-size: 13px;">Địa chỉ: Tầng 1, nhà 17T7, Khu ĐT Trung Hóa Nhân Chính</p>
+                                <p style="font-size: 13px;"> Phường Nhân Chính, Quận Thanh Xuân</p>
+                                <p style="font-size: 13px;">Thành phố Hà Nội, Việt Nam</p>
                             </div>
                             <div class="col-4" align="center">
                                 <p style="font-size: 20px;"><b>HÓA ĐƠN GIÁ TRỊ GIA TĂNG</b></p>
@@ -42,14 +42,14 @@
                                 <p style="font-size: 13px;">Bản thể hiện của hóa đơn điện tử</p>
                                 <p style="font-size: 13px;">Tháng <field name="month" options='{"always_reload": True}' /> năm 2020</p>
                             </div>
-                            <div class="col-2" align="center">
+                            <div class="col-1" align="center">
                                 <p style="font-size: 13px;"><b>Mã số khách hàng <br/> <field name="customer_id" style="padding: 10px; border: 1px solid green;" options="{&quot;no_open&quot;: True}"/></b></p>
                             </div>
-                            <div class="col-3" align="left">
-                                <p class="fon" style="font-size: 13px;"><b>Mẫu số: <field name="code" required="True" /></b></p>
-                                <p style="font-size: 13px;">Mã số thuế: <field name="tax_code" options='{"always_reload": True}'/></p>
-                                <p style="font-size: 13px;">Ký hiệu: <b style="font-size: 15px;"><field name="sign"/></b></p>
-                                <p style="font-size: 13px;">Số: <b style="font-size: 15px;"><field name="number" readonly="1"/></b></p>
+                            <div class="col-2" align="left">
+                                <p><b>Mẫu số: 01T1S5DF1</b></p>
+                                <p>Mã số thuế: 11SA2D2151/151</p>
+                                <p>Ký hiệu: <b style="font-size: 15px;">SJD/1C</b></p>
+                                <p>Số: <b style="font-size: 15px;">15654PUS</b></p>
                             </div>
                         </div>
 
