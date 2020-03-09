@@ -38,8 +38,8 @@
 <!--                        </div>-->
                         <field name="phone" widget="phone"/>
                         <field name="mobile" widget="phone"/>
-                        <field name="position"/>
-                        <field name="address_id" attrs="{'invisible': [('position', 'not in', ['nvkv','nvnl'])]}"/>
+                        <field name="function"/>
+                        <field name="address_id" attrs="{'invisible': [('function', 'not in', ['nvkv','nvnl'])]}"/>
 <!--                        <field name="address_id" groups="custom_water.customer_group_area"/>-->
                     </group>
                 </sheet>
@@ -55,7 +55,7 @@
             <tree string="List users">
                 <field name="name"/>
                 <field name="address_id" widget="many2many_tags"/>
-                <field name="position"/>
+                <field name="function"/>
             </tree>
         </field>
     </record>

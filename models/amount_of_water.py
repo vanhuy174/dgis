@@ -11,16 +11,16 @@ class AmountOfWater(models.Model):
     month = fields.Integer( string='Tháng',required=False)
     from_date = fields.Date( string='Từ ngày', required=False)
     to_date = fields.Date( string='Đến ngày ', required=False)
-    csc = fields.Integer( string='Chỉ số cũ ', required=False, )
+    csc = fields.Integer( string='Chỉ số cũ ', required=False, readonly=True,)
     csm = fields.Integer( string='Chỉ số mới', required=False)
-    consume = fields.Integer( string='Tổng tiêu thụ', compute='_tinh_tieu_thu', store=True)
+    consume = fields.Integer( string='Tiêu thụ', compute='_tinh_tieu_thu', store=True)
     average = fields.Float()
 
     price = fields.Monetary( string='Đơn giá/m3 ', required=False, compute='_tinh_don_gia', store=True)
     create_at = fields.Date(string='Ngày ghi số nước', required=False)
     update_at = fields.Date( string='Thời gian cập nhập', required=False)
     price_subtotal = fields.Monetary( string='Thành tiền', required=False, compute='_tinh_thanh_tien', store=True)
-    household_id = fields.Many2one( comodel_name='cmsw.household', string='Hộ gia đình', required=False)
+    household_id = fields.Many2one( comodel_name='cmsw.household', string='Hộ gia đình', required=False, )
     user_id = fields.Many2one(
         comodel_name='res.users',
         string='Người cập nhập',
@@ -40,7 +40,7 @@ class AmountOfWater(models.Model):
     def _auto_load_user_import(self):
         for rec in self:
             for line in rec.household_id.address_id.user_id:
-                if line.position == "nvnl":
+                if line.function == "nvnl":
                     rec.user_id = line.id
 
     @api.depends("csc", "csm")
@@ -111,3 +111,18 @@ class AmountOfWater(models.Model):
         # })
         return self.write({'state': 'done'})
 
+    # @api.onchanges('csm,month')
+    # def _tinh_csc(self):
+
+    # @api.depends('household_id')
+    # def create_employee_report(self):
+    #     count = 0
+    #     employee_array = []
+    #     employee_data = {}
+    #     for employee in self.env['cmsw.household'].search([]):
+    #         if employee.amount_water_id.month:
+    #             count = count + 1
+    #             employee_data = {'count': str(count), 'month': employee.amount_water_id.month}
+    #             employee_array.append(employee_data)
+    #             print (employee_array)
+    #             print (employee_array[count]["count"])

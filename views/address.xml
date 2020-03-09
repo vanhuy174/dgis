@@ -35,7 +35,7 @@
                                         <tree>
                                             <field name="name"/>
                                             <field name="login"/>
-                                            <field name="position"/>
+                                            <field name="function"/>
                                         </tree>
                                     </field>
                         </group>

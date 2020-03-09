@@ -7,9 +7,11 @@
             <field name="model">cmsw.amount_of_water</field>
             <field name="arch" type="xml">
                 <pivot string="Phân tích">
-                    <field name="household_id" />
-                    <field name="consume"  type="measure"/>
-                    <field name="month"/>
+                    <field name="month" type="row">
+                        <field name="household_id"  type="col"/>
+                    </field>
+                    <field name="consume" type="measures"/>
+                    <field name="from_date" interval="month" type="col"/>
     <!--                <field name="confirmation_date" interval="month" type="row"/>-->
                 </pivot>
             </field>
