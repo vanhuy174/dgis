@@ -30,5 +30,5 @@ class Parner(models.Model):
 
     user_id = fields.Many2one(
         comodel_name='res.users',
-        string='Tài khoản đăng nhập',
+        string='User login',
         required=False)

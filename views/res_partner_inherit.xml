@@ -2,13 +2,13 @@
 <odoo>
     <data>
 
-        <record id="res_partner_form_inherit" model="ir.ui.view">
+        <record id="cmsw_partner_form_inherit" model="ir.ui.view">
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='work_phone']" position="after">
+                <xpath expr="//field[@name='vat']" position="after">
                     <field name="user_id"/>
                 </xpath>
 <!--                <xpath expr="//field[@name='example_field']" position="attributes">-->
