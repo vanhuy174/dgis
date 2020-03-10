@@ -11,7 +11,7 @@ class AmountOfWater(models.Model):
     month = fields.Integer( string='Tháng',required=False)
     from_date = fields.Date( string='Từ ngày', required=False)
     to_date = fields.Date( string='Đến ngày ', required=False)
-    csc = fields.Integer( string='Chỉ số cũ ', required=False, readonly=True,)
+    csc = fields.Integer( string='Chỉ số cũ ', required=False, readonly=True, compute="_tinh_csc")
     csm = fields.Integer( string='Chỉ số mới', required=False)
     consume = fields.Integer( string='Tiêu thụ', compute='_tinh_tieu_thu', store=True)
     average = fields.Float()
@@ -120,9 +120,17 @@ class AmountOfWater(models.Model):
     #     employee_array = []
     #     employee_data = {}
     #     for employee in self.env['cmsw.household'].search([]):
+    #         for i in employee.
     #         if employee.amount_water_id.month:
     #             count = count + 1
     #             employee_data = {'count': str(count), 'month': employee.amount_water_id.month}
     #             employee_array.append(employee_data)
     #             print (employee_array)
     #             print (employee_array[count]["count"])
+    @api.depends('household_id')
+    def _tinh_csc(self):
+        count = 0
+        for rec in self.env['cmsw.household'].search([]):
+            for line in rec.amount_water_id:
+                for i in line.month:
+                    print(i)

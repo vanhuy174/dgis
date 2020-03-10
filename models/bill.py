@@ -1,5 +1,7 @@
 from odoo import fields, models, api
-
+import base64
+from odoo import tools
+from odoo.modules.module import get_module_resource
 
 class Bill(models.Model):
     _name = 'cmsw.bill'
@@ -57,6 +59,16 @@ class Bill(models.Model):
     province = fields.Char(string='Tỉnh', required=True,)
     district = fields.Char(string='Huyện', required=True,)
     note = fields.Text(string='Address', required=True, compute='_doc_tong_tien')
+
+    @api.model
+    def _default_image(self):
+        """read image and set it by default:"""
+        image_path = get_module_resource('custom_water', 'static/src/img', 'male.png')
+        return tools.image_resize_image_big(base64.b64encode(open(image_path, 'rb').read()))
+
+    signed = fields.Binary(
+        "Chữ kí số", default=_default_image, attachment=True,
+        help="This field holds the image used as photo for the student, limited to 1024x1024px.")
 
     @api.model
     def create(self, vals):

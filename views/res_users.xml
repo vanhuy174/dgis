@@ -67,15 +67,8 @@
         <field name="res_model">res.users</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,kanban,form</field>
-<!--            <field name="arch" type="xml">-->
-<!--                <xpath expr="//field[@name='example_field']" position="replace">-->
-<!--                    <field name="example_field2"/>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//field[@name='example_field']" position="attributes">-->
-<!--                    <attribute name="invisible">True</attribute>-->
-<!--                </xpath>-->
-<!--            </field>-->
      </record>
+
      <record model="ir.actions.act_window.view" id="action_hr_voucher_confirmation2">
             <field name="sequence" eval="2"/>
             <field name="view_mode">form</field>
