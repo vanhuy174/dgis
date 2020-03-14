@@ -36,7 +36,7 @@
         'report/bill_report.xml',
         'report/amount_of_water_report_graph.xml',
         'views/amount_of_water.xml',
-        'views/res_company_inherit.xml',
+        # 'views/res_company_inherit.xml',
         'views/res_partner_inherit.xml',
         'views/menu.xml',
         'security/custom_group_users.xml',

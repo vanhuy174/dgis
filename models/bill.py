@@ -33,7 +33,7 @@ class Bill(models.Model):
     #     required=False)
 
     #==== header ========
-    company_id = fields.Many2one(string='Đơn vị cấp nước ', comodel_name='res.company')
+    # company_id = fields.Many2one(string='Đơn vị cấp nước ', comodel_name='res.company')
     code = fields.Char(string='Mãu số', required=False)
     sign = fields.Char(string='Kí hiệu', required=False)
     number = fields.Char(string='Số(TT)', required=False, copy=False, readonly=True,
@@ -86,7 +86,6 @@ class Bill(models.Model):
     def print_amount_of_water_line(self):
         for rec in self:
             rec.amount_of_water_line = self.env['cmsw.amount_of_water'].search([['household_id', '=', rec.household_id.id], ['month', '=', rec.month]])
-            print("==============++++++++++++++++")
             #print(self.household_id.amount_water_id)
         return {'domain': {'household_id': ['id', 'in', rec.amount_of_water_line]}}
 
@@ -133,15 +132,15 @@ class Bill(models.Model):
                 self.to_date = line.to_date
                 self.create_at_water = line.create_at
 
-    @api.onchange('company_id')
-    @api.multi
-    def _onchange_company(self):
-        if self.company_id.sign:
-            self.sign = self.company_id.sign
-        if self.company_id.vat:
-            self.tax_code = self.company_id.vat
-        if self.company_id.code:
-            self.code = self.company_id.code
+    # @api.onchange('company_id')
+    # @api.multi
+    # def _onchange_company(self):
+    #     if self.company_id.sign:
+    #         self.sign = self.company_id.sign
+    #     if self.company_id.vat:
+    #         self.tax_code = self.company_id.vat
+    #     if self.company_id.code:
+    #         self.code = self.company_id.code
     @api.depends("amount_total")
     def _doc_tong_tien(self):
         # self.note = "aaa"
@@ -196,12 +195,12 @@ class Bill(models.Model):
         return self.env.ref('custom_water.bill_basic_report') \
             .with_context({'discard_logo_check': True}).report_action(self)
 
-class Company(models.Model):
-
-    _inherit = 'res.company'
-    _description = ''
-
-    name = fields.Char(string="Tên" )
-    signature = fields.Binary(string='Chữ ký', attachment=True,)
-    code = fields.Char(string='Mẫu số', required=False)
-    sign = fields.Char(string='Kí hiệu', required=False)
+# class Company(models.Model):
+#
+#     _inherit = 'res.company'
+#     _description = ''
+#
+#     name = fields.Char(string="Tên" )
+#     signature = fields.Binary(string='Chữ ký', attachment=True,)
+#     code = fields.Char(string='Mẫu số', required=False)
+#     sign = fields.Char(string='Kí hiệu', required=False)

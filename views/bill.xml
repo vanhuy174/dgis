@@ -120,12 +120,12 @@
                             <page string="Thông tin khác">
                                 <group>
                                     <group string="" name="sales_person" >
-                                        <field name="code" required="True"/>
+                                        <field name="code"      />
                                         <field name="sign"/>
                                         <field name="number"/>
                                     </group>
                                     <group string="Nhà cung cấp" name="sale_shipping">
-                                        <field name="company_id" options="{'no_create': True}"/>
+<!--                                        <field name="company_id" options="{'no_create': True}"/>-->
                                         <field name="tax_code"/>
                                     </group>
                                 </group>

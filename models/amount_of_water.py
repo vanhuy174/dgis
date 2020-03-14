@@ -11,7 +11,7 @@ class AmountOfWater(models.Model):
     month = fields.Integer( string='Tháng',required=False)
     from_date = fields.Date( string='Từ ngày', required=False)
     to_date = fields.Date( string='Đến ngày ', required=False)
-    csc = fields.Integer( string='Chỉ số cũ ', required=False, readonly=True, compute="_tinh_csc")
+    csc = fields.Integer( string='Chỉ số cũ ', required=False, readonly=True, compute='_tinh_csc', store = True)
     csm = fields.Integer( string='Chỉ số mới', required=False)
     consume = fields.Integer( string='Tiêu thụ', compute='_tinh_tieu_thu', store=True)
     average = fields.Float()
@@ -49,19 +49,19 @@ class AmountOfWater(models.Model):
             for line in rec.household_id:
                 print(line)
 
-    @api.constrains("consume")  # bắt ngoại lệ khi nhập số lượng
-    def _canh_bao_nuoc(self):
-        for rec in self:
-            average = 0.0
-            total = 0
-            count = 0
-            for line in rec.household_id.amount_water_id:
-                count += 1
-                total += line.consume
-                average = total/ count
-                temp = rec.consume - average
-                if temp > 50:
-                    raise exceptions.ValidationError(u"Lượng nước tiêu thụ tăng đột biến!")
+    # @api.constrains("consume")  # bắt ngoại lệ khi nhập số lượng
+    # def _canh_bao_nuoc(self):
+    #     for rec in self:
+    #         average = 0.0
+    #         total = 0
+    #         count = 0
+    #         for line in rec.household_id.amount_water_id:
+    #             count += 1
+    #             total += line.consume
+    #             average = total/ count
+    #             temp = rec.consume - average
+    #             if temp > 50:
+    #                 raise exceptions.ValidationError(u"Lượng nước tiêu thụ tăng đột biến!")
 
     @api.depends('household_id.area','household_id.pur_use')
     def _tinh_don_gia(self):
@@ -111,26 +111,99 @@ class AmountOfWater(models.Model):
         # })
         return self.write({'state': 'done'})
 
-    # @api.onchanges('csm,month')
-    # def _tinh_csc(self):
-
-    # @api.depends('household_id')
-    # def create_employee_report(self):
-    #     count = 0
-    #     employee_array = []
-    #     employee_data = {}
-    #     for employee in self.env['cmsw.household'].search([]):
-    #         for i in employee.
-    #         if employee.amount_water_id.month:
-    #             count = count + 1
-    #             employee_data = {'count': str(count), 'month': employee.amount_water_id.month}
-    #             employee_array.append(employee_data)
-    #             print (employee_array)
-    #             print (employee_array[count]["count"])
     @api.depends('household_id')
     def _tinh_csc(self):
-        count = 0
-        for rec in self.env['cmsw.household'].search([]):
-            for line in rec.amount_water_id:
-                for i in line.month:
-                    print(i)
+        for rec in self:
+            if rec.household_id:
+                sql = "SELECT MAX(csm) FROM cmsw_amount_of_water WHERE household_id = %d ;" % rec.household_id.id
+                self.env.cr.execute(sql)
+                data = self.env.cr.fetchall()
+                rec.csc = data[0][0]
+                if rec.csc == rec.csm and data[0][0] != None:
+                    sql = "SELECT MAX( csm ) FROM cmsw_amount_of_water WHERE csm < %d AND household_id = %d ;" %(data[0][0], rec.household_id.id)
+                    self.env.cr.execute(sql)
+                    csc = self.env.cr.fetchall()
+                    rec.csc = csc[0][0]
+
+
+    # @api.depends('csm','month','household_id')
+    # def _tinh_csc(self):
+    #     sql = "SELECT household_id, COUNT(*) FROM cmsw_amount_of_water GROUP BY household_id;"
+    #     self.env.cr.execute(sql)
+    #     household = self.env.cr.fetchall()
+    #     # print(household)
+    #     for i in range(len(household)):
+    #         for j in range(household[i][1]):
+    #             for rec in self:
+    #                 if rec.household_id.id == household[i][0]:
+    #                     sql1 = "SELECT csm FROM cmsw_amount_of_water WHERE household_id = %d GROUP BY csm ;" % rec.household_id.id
+    #                     rec.env.cr.execute(sql1)
+    #                     data = rec.env.cr.fetchall()
+    #                     #print(data)
+    #                     for n in range(len(data)):
+    #                         #print(n)
+    #                         if n==0:
+    #                             rec.csc = 0
+    #                         elif n < len(data)-1:
+    #                             #rec.csc = data[n+1][0]
+    #                             print(data[n+1][0])
+    #                         else:
+    #                             break
+                                #print((data[0][n+1]))
+                        # print((rec.csm))
+                    #break
+                break
+           # break
+    #
+    # @api.depends('csm','month','household_id')
+    # def _get_csc(self):
+    #     for rec in self:
+    #         rec.csc = self._tinh_csc()
+    # @api.depends('csm','month','household_id')
+    # def _tinh_csc(self, household=None):
+    #     #sql = "select amount_water_id_month, MAX(amount_water_id_csm) from cmsw_household group by amount_water_id_month;"
+    #     #sql = "SELECT household_id, month, COUNT(*) FROM cmsw_amount_of_water GROUP BY household_id, month;"
+    #     sql = "SELECT household_id,month,csc, csm FROM cmsw_amount_of_water GROUP BY household_id, month, csc, csm;"
+    #     self.env.cr.execute(sql)
+    #     months = self.env.cr.fetchall()
+    #     print(months)
+    #     c = 0
+    #     for i in range(len(months)):
+    #         for a in self:
+    #             if a.household_id.id == months[i][0]:
+    #                 for rec in a.household_id:
+    #                     for j in rec.amount_water_id:
+    #                         j.household_id.groupby('household_id')
+    #                         if i==0:
+    #                             j.csc = 0
+    #                         # j.csc = j.csm
+    #                         # print(len(months))
+    #                         if i > 0:
+    #                             l = list(months[i-1])
+    #                             l2 = list(months[i])
+    #                             if a.household_id.id == l2[0]:
+    #                                 # print(l[1]- l2[1])
+    #                                 # if l[1] - l2[1] == 0 :
+    #                                 #     l2[2] = 0
+    #                                 #     j.csc = l2[2]
+    #                                 if l[1] - l2[1] == 1 or l2[1] - l[1] == -11:
+    #                                     # j.csc = l2[2]
+    #                                     l[2] = l2[3]
+    #                                     # j.csc = l2[2]
+    #                                     # print("==============================================")
+    #                                     # print(l[1] - l2[1])
+    #                                     print(l[2])
+                            # print(l2[1]-l[1])
+                            # if i==0:
+                            #     j.csc=0
+                            # if months[i][1]-months[i-1][1]==1:
+
+
+                            # c +=1
+                #             break
+                #         break
+                #     break
+                # break
+            # break
+        # return res_all
+

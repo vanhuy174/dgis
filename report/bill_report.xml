@@ -2,7 +2,10 @@
 <odoo>
     <data>
         <template id="customer_order_document">
-            <t t-call="web.external_layout">
+            <xpath expr="//link[last()]" position="after">
+                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/less"/>
+            </xpath>
+<!--            <t t-call="web.external_layout">-->
                 <t t-set="doc" t-value="doc.with_context({'lang':doc.household_id.lang})"/>
                 <br/>
                 <div class="row" style="font-size: 10px; line-height: 10px;">
@@ -128,7 +131,7 @@
                     <p>Hóa đơn điện tử tra cứu tại <b><i>domain.com/search</i></b>. Mã tra cứu hóa đơn: <b><i>A4A2A3C8</i></b></p>
 <!--                    <span t-field="doc.company_id.signature"/>-->
                 </div>
-            </t>
+<!--            </t>-->
         </template>
 
         <template id="order_print_template">

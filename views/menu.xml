@@ -69,12 +69,12 @@
                                   sequence="20"
                                   groups="customer_group_admin"/>
                         <!-- This Menu Item must have a parent and an action -->
-                        <menuitem id="cmsw_res_company_menu"
-                                  name="Công ty"
-                                  parent="cmsw_config_menu"
-                                  action="cmsw_res_company_act"
-                                  sequence="40"
-                                  groups="customer_group_admin"/>
+<!--                        <menuitem id="cmsw_res_company_menu"-->
+<!--                                  name="Công ty"-->
+<!--                                  parent="cmsw_config_menu"-->
+<!--                                  action="cmsw_res_company_act"-->
+<!--                                  sequence="40"-->
+<!--                                  groups="customer_group_admin"/>-->
 
     </data>
 </odoo>
