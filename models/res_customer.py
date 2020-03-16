@@ -8,17 +8,17 @@ class Customers(models.Model):
 
     Custom_ID = fields.Char(string='ID')
     image = fields.Binary('Picture', attachment=True)
-    ho_ten = fields.Char(string='Họ tên')
+    ho_ten = fields.Char(string='Họ tên', required=True)
     email = fields.Char(string='Địa chỉ Email')
-    so_dien_thoai = fields.Char(string='Số điện thoại')
+    so_dien_thoai = fields.Char(string='Số điện thoại', required=True)
     gioi_tinh = fields.Selection(
         string='Giới tính',
         selection=[('nam', 'Nam'),
                    ('nu', 'Nữ'),
                    ], required=False, )
-    ngay_sinh = fields.date(string='Ngày sinh')
+    ngay_sinh = fields.Date(string='Ngày sinh')
     cmnd = fields.Char(string='Số CMND')
-    diachi = fields.Char(string='Địa chỉ')
+    diachi = fields.Char(string='Địa chỉ', required=True)
     nghe_nghiep = fields.Char(string='Nghề Nghiệp')
     tt_honnhan = fields.Char(string='Tình trạng hôn nhân')
     muc_thu_nhap = fields.Char(string='Mức thu nhập')
