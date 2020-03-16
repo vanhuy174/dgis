@@ -11,12 +11,12 @@ class Customers(models.Model):
     ho_ten = fields.Char(string='Họ tên')
     email = fields.Char(string='Địa chỉ Email')
     so_dien_thoai = fields.Char(string='Số điện thoại')
-    gioi_tinh = fields.Integer(string='Giới tính')
-    ngay_sinh = fields.Selection(
+    gioi_tinh = fields.Selection(
         string='Giới tính',
         selection=[('nam', 'Nam'),
                    ('nu', 'Nữ'),
                    ], required=False, )
+    ngay_sinh = fields.date(string='Ngày sinh')
     cmnd = fields.Char(string='Số CMND')
     diachi = fields.Char(string='Địa chỉ')
     nghe_nghiep = fields.Char(string='Nghề Nghiệp')

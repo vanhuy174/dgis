@@ -2,16 +2,59 @@
 <odoo>
     <data>
 
-        <record id="dgis_customer_tree" model="ir.ui.view">
-            <field name="name">dgis.customer.tree</field>
+        <record id="view_customer_form" model="ir.ui.view">
+            <field name="name">res.customer.form</field>
             <field name="model">cm.customer</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
-                <tree string="khach hang">
-                    <field name="Custom_ID"/>
-                    <field name="ho_ten"/>
-                    <field name="email"/>
-                    <field name="so_dien_thoai"/>
-                </tree>
+                <form string="Users">
+                    <sheet>
+                        <field name="id" invisible="1"/>
+                        <div class="alert alert-info text-center mb-3" attrs="{'invisible': [('id', '>', 0)]}"
+                             role="alert">
+                            Tạo tài khoản mới
+                        </div>
+                        <field name="image" widget='image' class="oe_avatar"
+                               options='{"preview_image": "image_medium"}'/>
+                        <div class="oe_title">
+                            <label for="ho_ten" class="oe_edit_only"/>
+                            <h1>
+                                <field name="ho_ten" required="1"/>
+                            </h1>
+                            <label for="email" class="oe_edit_only" string="Email Address"/>
+                            <h2>
+                                <field name="email"
+                                       placeholder="email@yourcompany.com"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <field name="so_dien_thoai"/>
+                            <field name="gioi_tinh"/>
+                            <field name="ngay_sinh"/>
+                            <field name="cmnd"/>
+                            <field name="diachi"/>
+                            <field name="nghe_nghiep"/>
+                        </group>
+                        <group>
+                            <field name="tt_honnhan"/>
+                            <field name="muc_thu_nhap"/>
+                            <field name="so_nv"/>
+                            <field name="ky_nang"/>
+                            <field name="trinh_do"/>
+                            <field name="so_thich"/>
+
+                        </group>
+                        <div class=" text-center mb-3">
+                                Khi cần báo tin cho ai
+                        </div>
+                        <group>
+                            <field name="lien_he_ten"/>
+                            <field name="lien_sdt"/>
+                            <field name="lien_emil"/>
+                            <field name="lien_dia_chi"/>
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record>
 
