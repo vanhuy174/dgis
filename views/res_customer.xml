@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="dgis_customer_tree" model="ir.ui.view">
+            <field name="name">dgis.customer.tree</field>
+            <field name="model">cm.customer</field>
+            <field name="arch" type="xml">
+                <tree string="khach hang">
+                    <field name="Custom_ID"/>
+                    <field name="ho_ten"/>
+                    <field name="email"/>
+                    <field name="so_dien_thoai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dgis_customer_act" model="ir.actions.act_window">
+            <field name="name">Khách hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cm.customer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

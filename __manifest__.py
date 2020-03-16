@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "custom_water",
+    'name': "DGIS",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -27,21 +27,11 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/bill.xml',
         'views/res_users.xml',
-        'views/household.xml',
-        'views/member_fam.xml',
-        'data/sequence.xml',
-        'views/address.xml',
-        'report/bill_report.xml',
-        'report/amount_of_water_report_graph.xml',
-        'views/amount_of_water.xml',
-        # 'views/res_company_inherit.xml',
-        'views/res_partner_inherit.xml',
+        'views/res_customer.xml',
         'views/menu.xml',
-        'security/custom_group_users.xml',
-        'security/ir.model.access.csv',
-        'security/user_record_rule.xml',
+        'views/inherited_form_view.xml',
+        'views/inherited_tree_view.xml',
 
     ],
     # only loaded in demonstration mode
