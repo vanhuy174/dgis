@@ -2,19 +2,35 @@
 <odoo>
     <data>
 
-        <record id="res_users_tree_view_inherited" model="ir.ui.view">
-            <field name="name">res.users.tree</field>
+<!--                <record id="res_users_tree_view_inherited" model="ir.ui.view">-->
+<!--                    <field name="name">res.users.tree</field>-->
+<!--                    <field name="model">res.users</field>-->
+<!--                    <field name="inherit_id" ref="base.view_users_tree" />-->
+<!--                    <field name="arch" type="xml">-->
+
+<!--                        <xpath expr="//field[@name='login']" position="before">-->
+<!--                            <field name="key_user"/>-->
+<!--                        </xpath>-->
+<!--                        <xpath expr="//field[@name='lang']" position="before">-->
+<!--                            <field name="phone"/>-->
+<!--                        </xpath>-->
+
+<!--                    </field>-->
+<!--                </record>-->
+
+        <record id="res_users_kanban_view_inherited" model="ir.ui.view">
+            <field name="name">res.users.kanban</field>
             <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_tree" />
+            <field name="inherit_id" ref="base.view_res_users_kanban"/>
             <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='login']" position="before">
-                    <field name="key_user"/>
-                </xpath>
-                <xpath expr="//field[@name='lang']" position="before">
-                    <field name="phone"/>
-                </xpath>
-
+                <kanban>
+                    <xpath expr="//field[@name='login']" position="before">
+                        <field name="key_user"/>
+                    </xpath>
+                    <xpath expr="//field[@name='login']" position="after">
+                        <field name="phone"/>
+                    </xpath>
+                </kanban>
             </field>
         </record>
 

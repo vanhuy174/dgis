@@ -40,7 +40,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.users</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_mode">kanban,form</field>
         </record>
     </data>
 </odoo>

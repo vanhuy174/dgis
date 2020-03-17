@@ -6,7 +6,8 @@ class Customers(models.Model):
     _name = 'cm.customer'
     _description = ''
 
-    Custom_ID = fields.Char(string='ID')
+    Custom_ID = fields.Char(string='ID', copy=False, readonly=True)
+
     image = fields.Binary('Picture', attachment=True)
     ho_ten = fields.Char(string='Họ tên', required=True)
     email = fields.Char(string='Địa chỉ Email')
@@ -30,3 +31,9 @@ class Customers(models.Model):
     lien_sdt = fields.Char(string='Số điện thoại')
     lien_emil = fields.Char(string="Email")
     lien_dia_chi = fields.Char(string='Dịa chỉ')
+
+    @api.model
+    def create(self, vals):
+        seq_obj = self.env['ir.sequence']
+        vals['Custom_ID'] = seq_obj.next_by_code('cm.customer.service')
+        return super(Customers, self).create(vals)
