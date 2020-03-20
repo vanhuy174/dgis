@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="customer_order_document">
+            <xpath expr="//link[last()]" position="after">
+                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/less"/>
+                <style>
+                    html *
+                    {
+                        padding: 0;
+                        font-size: 12;
+                        font-family: Times and Roman;
+                    }
+                    .id p, span{
+                        text-align: center;
+                        font-size: 30px;
+                    }
+                </style>
+             </xpath>
+            <div class="container">
+<!--                    <t t-set="doc" t-value="doc.with_context({'lang':doc.lang})"/>-->
+                    <div class="id">
+                        <p>ID: <b><span t-field="doc.Custom_ID"/></b></p>
+                    </div>
+                    <div class="row col-12">
+                        <img t-attf-src="data:image/*;base64,{{doc.image_dgis}}"  />
+                    </div>
+            </div>
+        </template>
+
+        <template id="report_dgis_customer_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="dgis.customer_order_document"/>
+                </t>
+            </t>
+        </template>
+
+        <report
+                id="report_dgis_customer"
+                model="dgis.customer"
+                string="ReportTitle"
+                name="dgis.report_dgis_customer_view"
+                file="dgis.report_dgis_customer"
+                report_type="qweb-pdf"/>
+    </data>
+</odoo>

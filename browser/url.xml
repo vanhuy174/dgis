@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="menu_user_form" model="website.menu">
+<!--        here record id is the unique id of your record & model is the ‘website.menu’ of the website.-->
+            <field name="name">Url Customer</field>
+<!--            here mention the name of the menu to appear.-->
+            <field name="url">/customer/form</field>
+<!--            here mention the url of the website to be redirected after clicking. This is a controller.-->
+            <field name="parent_id" ref="website.main_menu"/>
+<!--            here mention the parent id of the menu which we are inheriting.-->
+            <field name="sequence" type="int">22</field>
+        </record>
+
+
+        <template id="tmp_customer_form" name="Customer Form">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <div class="col-md-12">
+                                <form action="/customer/form/submit">
+<!--                                url/controller to called on the form action.-->
+                                    <div class="form-group">
+                                        <label for="name">ID khách hàng: </label>
+                                        <input type="text" class="form-control" name="id" id="id" required="true" />
+<!--                                  label and id of the fields to be created in the form.These fields should be present in the model for the entry of the data into the database.#-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file">File phân tích: </label>
+                                        <input type="file" class="form-control" name="file" id="file" required="true" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Gửi cho HTC</button>
+                                </form>
+                            </div>
+                        </div>
+                      </div>
+                  </t>
+            </template>
+
+
+            <template id="tmp_customer_form_success" name="Customer Form Successfully Submitted">
+                    <t t-call="website.layout">
+                        <div id="wrap">
+                            <div class="container">
+                                <div class="col-md-12">
+                                    <div class="alert alert-success">
+                                        Customer created successfully.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+            </template>
+    </data>
+</odoo>

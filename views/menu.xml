@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <menuitem id="dgis_root_menu" name="Tài khoản"
-                  web_icon="DGIS,static/logo/logo.png"
+        <menuitem id="dgis_root_menu" name="Sinh trắc vân tay "
+                  web_icon="dgis,static/logo/dgis.png"
                   sequence="1"
+        />
+        <menuitem id="dgis_customer_menu" name="Khách hàng"
+                  sequence="2"
+                  parent="dgis_root_menu"
+                  action="dgis_customer_act"
+        />
+        <menuitem id="dgis_users_menu" name="Tài khoản"
+                  sequence="3"
+                  parent="dgis_root_menu"
                   action="dgis_users_act"
         />
 
-        <menuitem id="dgis_customer_menu" name="Khách hàng"
-                  web_icon="DGIS,static/logo/logo.png"
-                  sequence="2"
-                  action="dgis_customer_act"
-        />
     </data>
 </odoo>

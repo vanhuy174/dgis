@@ -4,7 +4,7 @@
 
         <record id="DGIS_customer_tree" model="ir.ui.view">
             <field name="name">DGIS.customer.tree</field>
-            <field name="model">cm.customer</field>
+            <field name="model">dgis.customer</field>
             <field name="arch" type="xml">
                 <tree string="Khách hàng">
                     <field name="Custom_ID"/>
@@ -18,17 +18,17 @@
 
         <record id="view_customer_form" model="ir.ui.view">
             <field name="name">DGIS.customer.form</field>
-            <field name="model">cm.customer</field>
+            <field name="model">dgis.customer</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="Users">
+                    <header>
+                        <button name="action_quotation_send" string="Send by Email to Infolife" type="object"
+                                    class="btn-primary"/>
+                    </header>
                     <sheet>
-                        <field name="id" invisible="1"/>
-                        <div class="alert alert-info text-center mb-3" attrs="{'invisible': [('id', '>', 0)]}"
-                             role="alert">
-                            Tạo tài khoản mới
-                        </div>
-                        <field name="image" widget="image" class="oe_avatar"/>
+                        <field name="image" widget='image' class="oe_avatar"
+                               width="80" height="200" margin-right="50" />
                         <div class="oe_title">
                             <label for="ho_ten" class="oe_edit_only"/>
                             <h1>
@@ -59,32 +59,58 @@
                                 <field name="so_thich"/>
                             </group>
                         </group>
-                        <div class=" mb-3">
-                            <hr/>
-                            <h3>Khi cần báo tin cho ai</h3>
-                        </div>
-                        <group>
-                            <field name="lien_he_ten"/>
-                            <field name="lien_sdt"/>
-                            <field name="lien_emil"/>
-                            <field name="lien_dia_chi"/>
-                        </group>
+
+                        <notebook >
+                            <page string="Liên hệ">
+                                <group string="Khi cần báo tin cho ai">
+                                    <group>
+                                        <field name="lien_he_ten"/>
+                                        <field name="lien_sdt"/>
+                                        <field name="lien_email"/>
+                                        <field name="lien_dia_chi"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="File">
+                                <group>
+                                    <field name="image_dgis"/>
+                                    <field name="file_phan_tich"/>
+                                     <field name="user_id" />
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
+        </record>
+
+        <record id="dgis_customer_search" model="ir.ui.view">
+           <field name="name">Tìm kiếm</field>
+           <field name="model">dgis.customer</field>
+            <field name="arch" type="xml">
+                <search string="Khách hàng">
+                  <field name="Custom_ID" string="ID khách hàng" domain="[()]"/>
+                  <field name="ho_ten" string="Tên khách hàng" domain="[()]"/>
+                </search>
+           </field>
         </record>
 
         <record id="dgis_customer_act" model="ir.actions.act_window">
             <field name="name">Khách hàng</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">cm.customer</field>
+            <field name="res_model">dgis.customer</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <record id="sequence_customer_service" model="ir.sequence">
-            <field name="name">customer Service</field>
-            <field name="code">cm.customer.service</field>
+            <field name="name">Customer sequence</field>
+            <field name="code">dgis.customer.service</field>
             <field name="active">TRUE</field>
             <field name="prefix">DGIS</field>
             <field name="padding">8</field>

@@ -22,16 +22,18 @@
     # any module necessary for this one to work correctly
     'depends': ['mail',
                 'base',
+                'website',
                 'crm'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/res_users.xml',
         'views/res_customer.xml',
+        'views/res_users.xml',
+        'report/file_dgis.xml',
+        'data/mail_template.xml',
         'views/menu.xml',
-        'views/inherited_form_view.xml',
-        'views/inherited_tree_view.xml',
+        'browser/url.xml',
 
     ],
     # only loaded in demonstration mode

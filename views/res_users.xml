@@ -34,13 +34,38 @@
                 </form>
             </field>
         </record>
+        <record id="view_users_assign_simple_tree" model="ir.ui.view">
+        <field name="name">res.users.tree</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <tree string="List users">
+                <field name="name"/>
+                <field name="login"/>
+                <field name="key_user"/>
+            </tree>
+        </field>
+        </record>
 
         <record id="dgis_users_act" model="ir.actions.act_window">
             <field name="name">Người dùng</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.users</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,form</field>
+            <field name="view_mode">tree,kanban,form</field>
         </record>
+
+        <record model="ir.actions.act_window.view" id="action_hr_voucher_confirmation2">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_users_assign_simple_form"/>
+            <field name="act_window_id" ref="dgis_users_act"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_hr_voucher_confirmation1">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_users_assign_simple_tree"/>
+            <field name="act_window_id" ref="dgis_users_act"/>
+      </record>
     </data>
 </odoo>
