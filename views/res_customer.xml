@@ -3,7 +3,7 @@
     <data>
 
         <record id="DGIS_customer_tree" model="ir.ui.view">
-            <field name="name">DGIS.customer.tree</field>
+            <field name="name">dgis.customer.tree</field>
             <field name="model">dgis.customer</field>
             <field name="arch" type="xml">
                 <tree string="Khách hàng">
@@ -17,13 +17,15 @@
         </record>
 
         <record id="view_customer_form" model="ir.ui.view">
-            <field name="name">DGIS.customer.form</field>
+            <field name="name">dgis.customer.form</field>
             <field name="model">dgis.customer</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="Users">
                     <header>
-                        <button name="action_quotation_send" string="Send by Email to Infolife" type="object"
+                        <button name="action_send_to_infolife" string="Gửi file cho Infolife" type="object"
+                                    class="btn-primary"/>
+                        <button name="action_send_to_customer" string="Gửi file cho khách hàng" type="object"
                                     class="btn-primary"/>
                     </header>
                     <sheet>

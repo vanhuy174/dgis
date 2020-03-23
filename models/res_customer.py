@@ -6,8 +6,8 @@ from odoo.modules.module import get_module_resource
 from odoo import tools
 from odoo import api, fields, models
 
-class Customers(models.Model):
 
+class Customers(models.Model):
     _name = 'dgis.customer'
     _inherit = 'res.partner'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -17,11 +17,11 @@ class Customers(models.Model):
     is_form = fields.Boolean(string='Form nhập', default=False)
     Custom_ID = fields.Char(string='ID', readonly=True, store=True)
     image_dgis = fields.Binary(
-        "File vân tay",attachment=True,)
+        "File vân tay", attachment=True, )
     file_phan_tich = fields.Binary(
-        "File sau phân tích ",attachment=True,)
-    ho_ten = fields.Char(string='Họ tên', required=True,)
-    email = fields.Char(string='Địa chỉ Email', required=True,)
+        "File sau phân tích ", attachment=True, )
+    ho_ten = fields.Char(string='Họ tên', required=True, )
+    email = fields.Char(string='Địa chỉ Email', required=True, )
     so_dien_thoai = fields.Char(string='Số điện thoại', required=True)
     gioi_tinh = fields.Selection(
         string='Giới tính',
@@ -33,10 +33,10 @@ class Customers(models.Model):
     diachi = fields.Char(string='Địa chỉ', required=True)
     nghe_nghiep = fields.Char(string='Nghề Nghiệp')
     tt_honnhan = fields.Selection(string='Tình trạng hôn nhân',
-        selection=[('dt', 'Độc thân'),
-                   ('dkh', 'Đã kết hôn'),
-                   ('dlh', 'Đã ly hôn'),
-                   ], required=False,)
+                                  selection=[('dt', 'Độc thân'),
+                                             ('dkh', 'Đã kết hôn'),
+                                             ('dlh', 'Đã ly hôn'),
+                                             ], required=False, )
     muc_thu_nhap = fields.Selection(
         string='Mức thu nhập',
         selection=[('duoi_10', 'Dưới 10 triệu'),
@@ -47,7 +47,7 @@ class Customers(models.Model):
     ky_nang = fields.Char(string='Kỹ năng')
     trinh_do = fields.Char(string='Trình độ chuyên môn')
     so_thich = fields.Char(string='Sở thích')
-    lien_he_ten = fields.Many2one('dgis.customer',string='Họ tên')
+    lien_he_ten = fields.Many2one('dgis.customer', string='Họ tên')
     lien_sdt = fields.Char(string='Số điện thoại')
     lien_email = fields.Char(string="Email")
     lien_dia_chi = fields.Char(string='Dịa chỉ')
@@ -80,11 +80,11 @@ class Customers(models.Model):
     #             rec.Custom_ID = rec.my_random_string(8)
     #             temp = True
 
-            # if rec.Custom_ID != None:
-            #     rec.Custom_ID = True
-            #     temp == True
-            # if temp == True or rec.Custom_ID != False:
-            #     break
+    # if rec.Custom_ID != None:
+    #     rec.Custom_ID = True
+    #     temp == True
+    # if temp == True or rec.Custom_ID != False:
+    #     break
 
     @api.model
     def _default_image(self):
@@ -107,27 +107,51 @@ class Customers(models.Model):
                 rec.lien_dia_chi = rec.lien_he_ten.diachi
 
     @api.multi
-    def action_quotation_send(self):
-        '''
-        This function opens a window to compose an email, with the edi sale template message loaded by default
-        '''
+    def action_send_to_infolife(self):
         self.ensure_one()
-        print(self.ensure_one())
         ir_model_data = self.env['ir.model.data']
-        print(ir_model_data)
         try:
-            template_id = ir_model_data.get_object_reference('dgis', 'email_template_customer_dgis')[1]
-            print(template_id)
+            template_id = ir_model_data.get_object_reference('DGIS', 'email_template_customer')[1]
         except ValueError:
             template_id = False
         try:
             compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
             compose_form_id = False
-        # lang = self.env.context.get('lang')
-        # template = template_id and self.env['mail.template'].browse(template_id)
-        # if template and template.lang:
-        #     lang = template._render_template(template.lang, 'sale.order', self.ids[0])
+        print(template_id, compose_form_id)
+        ctx = {
+            'default_model': 'dgis.customer',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True,
+            'force_email': True
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
+    @api.multi
+    def action_send_to_customer(self):
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('DGIS', 'email_template_customer')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        print(template_id, compose_form_id)
         ctx = {
             'default_model': 'dgis.customer',
             'default_res_id': self.ids[0],
