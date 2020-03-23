@@ -4,28 +4,71 @@
 
         <template id="customer_order_document">
             <xpath expr="//link[last()]" position="after">
-                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/less"/>
+<!--                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/less"/>-->
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
                 <style>
                     html *
                     {
                         padding: 0;
-                        font-size: 12;
-                        font-family: Times and Roman;
+                        font-size: 20;
+                        font-family: "Times and Roman";
                     }
-                    .id p, span{
-                        text-align: center;
-                        font-size: 30px;
+                    td span, th{
+                        text-align: center
                     }
                 </style>
-             </xpath>
+            </xpath>
+            <div class="row" style="font-size: 50px; line-height: 10px;">
+                    <div class="col-3" align="center">
+                        <img src="/dgis/static/logo/dgis.png"  />
+                    </div>
+                    <div class="col-9" align="center">
+                        <h1 style="font-size: 30px;">
+                            <b>CÔNG TY CỔ PHẦN PHÁT HÀNH SÁCH THÁI NGUYÊN <br/>
+                            TRUNG TÂM ĐÀO TẠO VÀ PHÁT TRIỂN NGUỒN NHÂN LỰC
+                            </b>
+                        </h1>
+                    </div>
+            </div>
             <div class="container">
-<!--                    <t t-set="doc" t-value="doc.with_context({'lang':doc.lang})"/>-->
                     <div class="id">
                         <p>ID: <b><span t-field="doc.Custom_ID"/></b></p>
                     </div>
                     <div class="row col-12">
-                        <img t-attf-src="data:image/*;base64,{{doc.image_dgis}}"  />
+<!--                        <img t-attf-src="data:image/*;base64,{{doc.image_dgis}}"  />-->
                     </div>
+                <div class="row" >
+                    <table class="table">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Ngón cái</th>
+                              <th scope="col">Ngón trỏ</th>
+                              <th scope="col">Ngón giữa</th>
+                              <th scope="col">Ngón áp út</th>
+                              <th scope="col">Ngón út</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                                <th scope="row">Tay trái</th>
+                                <td ><span t-field="doc.thumb_l"/></td>
+                                <td ><span t-field="doc.index_finger_l"/></td>
+                                <td ><span t-field="doc.middle_finger_l"/></td>
+                                <td ><span t-field="doc.ring_finger_l"/></td>
+                                <td ><span t-field="doc.little_finger_l"/></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Tay phải</th>
+                                <td ><span t-field="doc.thumb_r"/></td>
+                                <td ><span t-field="doc.index_finger_r"/></td>
+                                <td ><span t-field="doc.middle_finger_r"/></td>
+                                <td ><span t-field="doc.ring_finger_r"/></td>
+                                <td ><span t-field="doc.little_finger_r"/></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                </div>
             </div>
         </template>
 

@@ -1,25 +1,23 @@
 import base64
-import os
-import random
 import uuid
 from odoo.modules.module import get_module_resource
 from odoo import tools
-from odoo import api, fields, models
+from odoo import api, fields, models, exceptions
+from datetime import datetime, timedelta
 
 class Customers(models.Model):
 
     _name = 'dgis.customer'
-    _inherit = 'res.partner'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = ''
     _rec_name = 'ho_ten'
 
-    is_form = fields.Boolean(string='Form nhập', default=False)
-    Custom_ID = fields.Char(string='ID', readonly=True, store=True)
-    image_dgis = fields.Binary(
-        "File vân tay",attachment=True,)
+    tuoi = fields.Boolean(string='Tuổi', default=False, compute='get_tuoi')
+    Custom_ID = fields.Char(string='ID', copy=False, readonly=True,
+                         index=True, default='New')
     file_phan_tich = fields.Binary(
-        "File sau phân tích ",attachment=True,)
+        "File sau phân tích ", attachment=True, compute='get_file_phan_tich')
+    filename = fields.Char("Image Filename", compute='get_file_phan_tich')
     ho_ten = fields.Char(string='Họ tên', required=True,)
     email = fields.Char(string='Địa chỉ Email', required=True,)
     so_dien_thoai = fields.Char(string='Số điện thoại', required=True)
@@ -27,8 +25,8 @@ class Customers(models.Model):
         string='Giới tính',
         selection=[('nam', 'Nam'),
                    ('nu', 'Nữ'),
-                   ], required=False, )
-    ngay_sinh = fields.Date(string='Ngày sinh')
+                   ], required=True, )
+    ngay_sinh = fields.Datetime(string='Ngày sinh',select=True, default=lambda self: fields.datetime.now())
     cmnd = fields.Char(string='Số CMND')
     diachi = fields.Char(string='Địa chỉ', required=True)
     nghe_nghiep = fields.Char(string='Nghề Nghiệp')
@@ -47,44 +45,68 @@ class Customers(models.Model):
     ky_nang = fields.Char(string='Kỹ năng')
     trinh_do = fields.Char(string='Trình độ chuyên môn')
     so_thich = fields.Char(string='Sở thích')
-    lien_he_ten = fields.Many2one('dgis.customer',string='Họ tên')
+    lien_he_ten = fields.Many2one('dgis.customer',string='Họ tên bố')
     lien_sdt = fields.Char(string='Số điện thoại')
     lien_email = fields.Char(string="Email")
     lien_dia_chi = fields.Char(string='Dịa chỉ')
+
+    lien_he_ten_1 = fields.Many2one('dgis.customer', string='Họ tên mẹ')
+    lien_sdt_1 = fields.Char(string='Số điện thoại')
+    lien_email_1 = fields.Char(string="Email")
+    lien_dia_chi_1 = fields.Char(string='Dịa chỉ')
+
+    childs = fields.One2many( comodel_name='dgis.customer', inverse_name='lien_he_ten',string='Con', required=False)
+    childs_1 = fields.One2many( comodel_name='dgis.customer', inverse_name='lien_he_ten_1',string='Con', required=False)
 
     user_id = fields.Many2one(
         comodel_name='res.users',
         string='Tài khoản Email nhận bản sinh trắc',
         default=lambda self: self.env.user)
 
+    _sql_constraints = [
+        ('unique_Custom_ID', 'unique(Custom_ID)', u'ID trùng, hãy thử lại!'),
+    ]
+
+
+    # Vân tay trái
+    thumb_l = fields.Selection(string='Ngón cái', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    index_finger_l = fields.Selection(string='Ngón trỏ', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    middle_finger_l = fields.Selection(string='Ngón giữa', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    ring_finger_l = fields.Selection(string='Ngón áp út', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    little_finger_l = fields.Selection(string='Ngón út', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+
+    # Vân tay phải
+    thumb_r = fields.Selection(string='Ngón cái', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    index_finger_r = fields.Selection(string='Ngón trỏ', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    middle_finger_r = fields.Selection(string='Ngón giữa', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    ring_finger_r = fields.Selection(string='Ngón áp út', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+    little_finger_r = fields.Selection(string='Ngón út', selection=[('c1', 'Whorl'), ('c2', 'Composite'), ('c3', 'Loop'), ('c4', 'Radial Loop'), ('c5', 'Arch'), ('c6', 'Tented Arch')], required=False, )
+
+
+
+
+    def my_random_string(self,string_length=8):
+        """Returns a random string of length string_length."""
+        random = str(uuid.uuid4())  # Convert UUID format to a Python string.
+        random = random.upper()  # Make all characters uppercase.
+        random = random.replace("-", "")  # Remove the UUID '-'.
+        return random[0:string_length]  # Return the random string.
     @api.model
     def create(self, vals):
-        seq_obj = self.env['ir.sequence']
-        vals['Custom_ID'] = seq_obj.next_by_code('dgis.customer.service')
-        return super(Customers, self).create(vals)
+        if vals.get('Custom_ID', 'New') == 'New':
+            vals['Custom_ID'] = self.my_random_string(8)
+        result = super(Customers, self).create(vals)
+        return result
 
-    # def my_random_string(self,string_length=8):
-    #     """Returns a random string of length string_length."""
-    #     random = str(uuid.uuid4())  # Convert UUID format to a Python string.
-    #     random = random.upper()  # Make all characters uppercase.
-    #     random = random.replace("-", "")  # Remove the UUID '-'.
-    #     return random[0:string_length]  # Return the random string.
-    #
-    # def get_id(self):
-    #     temp = False
-    #     for rec in self:
-    #         # print(type(rec.Custom_ID))
-    #         if rec.Custom_ID == False and temp == False:
-    #             if temp == True:
-    #                 break
-    #             rec.Custom_ID = rec.my_random_string(8)
-    #             temp = True
-
-            # if rec.Custom_ID != None:
-            #     rec.Custom_ID = True
-            #     temp == True
-            # if temp == True or rec.Custom_ID != False:
-            #     break
+    @api.depends("ngay_sinh")
+    def get_tuoi(self):
+        for rec in self:
+            d = datetime.now() - rec.ngay_sinh
+            print((d))
+            if d.days > 5840:
+                rec.tuoi=True
+            else:
+                rec.tuoi = False
 
     @api.model
     def _default_image(self):
@@ -105,6 +127,21 @@ class Customers(models.Model):
                 rec.lien_email = rec.lien_he_ten.email
             if rec.lien_he_ten.diachi:
                 rec.lien_dia_chi = rec.lien_he_ten.diachi
+
+    @api.onchange('lien_he_ten_1')
+    def get_lien_he_1(self):
+        for rec in self:
+            if rec.lien_he_ten_1.so_dien_thoai:
+                rec.lien_sdt_1 = rec.lien_he_ten_1.so_dien_thoai
+            if rec.lien_he_ten_1.email:
+                rec.lien_email_1 = rec.lien_he_ten_1.email
+            if rec.lien_he_ten_1.diachi:
+                rec.lien_dia_chi_1 = rec.lien_he_ten_1.diachi
+
+    def get_file_phan_tich(self):
+        for rec in self:
+            rec.file_phan_tich = rec.env['ir.attachment'].search([['res_id', '=', rec.id],['res_model', '=', 'dgis.customer']], limit=1).datas
+            rec.filename = rec.env['ir.attachment'].search([['res_id', '=', rec.id],['res_model', '=', 'dgis.customer']], limit=1).datas_fname
 
     @api.multi
     def action_quotation_send(self):
@@ -147,3 +184,8 @@ class Customers(models.Model):
             'target': 'new',
             'context': ctx,
         }
+
+class Ir_Data(models.Model):
+
+    _inherit = 'ir.attachment'
+

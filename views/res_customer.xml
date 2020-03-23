@@ -57,12 +57,28 @@
                                 <field name="ky_nang"/>
                                 <field name="trinh_do"/>
                                 <field name="so_thich"/>
+                                <field name="tuoi" invisible="1"/>
                             </group>
                         </group>
-
+                        <group string="Chủng vân tay">
+                            <group string="Tay trái">
+                                <field name="thumb_l"/>
+                                <field name="index_finger_l"/>
+                                <field name="middle_finger_l"/>
+                                <field name="ring_finger_l"/>
+                                <field name="little_finger_l"/>
+                            </group>
+                            <group string="Tay phải">
+                                <field name="thumb_r"/>
+                                <field name="index_finger_r"/>
+                                <field name="middle_finger_r"/>
+                                <field name="ring_finger_r"/>
+                                <field name="little_finger_r"/>
+                            </group>
+                        </group>
                         <notebook >
-                            <page string="Liên hệ">
-                                <group string="Khi cần báo tin cho ai">
+                            <page string="Bố" attrs="{'invisible': [('tuoi','=', True)]}">
+                                <group string="Thông tin bố">
                                     <group>
                                         <field name="lien_he_ten"/>
                                         <field name="lien_sdt"/>
@@ -71,10 +87,47 @@
                                     </group>
                                 </group>
                             </page>
+                            <page string="Mẹ" attrs="{'invisible': [('tuoi','=', True)]}">
+                                <group string="Thông tin mẹ">
+                                    <group>
+                                        <field name="lien_he_ten_1"/>
+                                        <field name="lien_sdt_1"/>
+                                        <field name="lien_email_1"/>
+                                        <field name="lien_dia_chi_1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Con" attrs="{'invisible': [('tuoi','=', False)]}">
+                                <group string="Thông tin con">
+                                    <group attrs="{'invisible': [('gioi_tinh','=', 'nam')]}">
+                                        <field name="childs"
+                                        widget="section_and_note_one2many"
+                                        mode="tree,kanban" readonly='True'>
+                                        <tree>
+                                            <field name="Custom_ID"/>
+                                            <field name="ho_ten"/>
+                                            <field name="gioi_tinh"/>
+                                        </tree>
+                                    </field>
+                                    </group>
+                                    <group attrs="{'invisible': [('gioi_tinh','=', 'nu')]}">
+                                        <field name="childs_1"
+                                        widget="section_and_note_one2many"
+                                        mode="tree,kanban" readonly='True'>
+                                        <tree>
+                                            <field name="Custom_ID"/>
+                                            <field name="ho_ten"/>
+                                            <field name="gioi_tinh"/>
+                                        </tree>
+                                    </field>
+                                    </group>
+                                </group>
+                            </page>
                             <page string="File">
                                 <group>
-                                    <field name="image_dgis"/>
-                                    <field name="file_phan_tich"/>
+<!--                                    <field name="file_phan_tich" filename="file_phan_tich" widget="binary"/>-->
+                                    <field name="filename" invisible="1"/>
+                                    <field widget="binary" height="64" name="file_phan_tich" filename="filename" />
                                      <field name="user_id" />
                                 </group>
                             </page>
@@ -106,16 +159,6 @@
             <field name="res_model">dgis.customer</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="sequence_customer_service" model="ir.sequence">
-            <field name="name">Customer sequence</field>
-            <field name="code">dgis.customer.service</field>
-            <field name="active">TRUE</field>
-            <field name="prefix">DGIS</field>
-            <field name="padding">8</field>
-            <field name="number_next">1</field>
-            <field name="number_increment">1</field>
         </record>
 
     </data>

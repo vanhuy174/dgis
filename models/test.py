@@ -7,4 +7,4 @@ def my_random_string(string_length=10):
     random = random.replace("-","") # Remove the UUID '-'.
     return random[0:string_length] # Return the random string.
 
-print(my_random_string(8))
+    print(my_random_string(8))
