@@ -4,70 +4,124 @@
 
         <template id="customer_order_document">
             <xpath expr="//link[last()]" position="after">
-<!--                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/less"/>-->
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+                                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/less"/>
+<!--                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"-->
+<!--                      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"-->
+<!--                      crossorigin="anonymous"/>-->
                 <style>
-                    html *
-                    {
+                    html *{
                         padding: 0;
                         font-size: 20;
                         font-family: "Times and Roman";
                     }
-                    td span, th{
+                    .table{
+                        border: 1px solid;
+                    }
+                    td, th{
                         text-align: center
+                    }
+                    .body_pdf{
+                        margin-top: 50px;
+                    }
+                    tr td{
+                        font-size: 16px;
+                    }
+                    thead tr th, tbody tr th{
+                        height: 40px;
+                    }
+                    .cstr td{
+                        height: 120px;
+                    }
+                    .tr_title td{
+                        height: 40px;
+                        background-color: gray;
                     }
                 </style>
             </xpath>
-            <div class="row" style="font-size: 50px; line-height: 10px;">
-                    <div class="col-3" align="center">
-                        <img src="/dgis/static/logo/dgis.png"  />
+            <div class="form_pdf">
+                <div class="row" style="text-align: center;">
+                    <div class="col-3">
+                        <img src="https://htcenter.edu.vn/storage/settings/February2020/E4wKO69UST4bPHqCYtsx.png" style = "width: 100%"/>
                     </div>
                     <div class="col-9" align="center">
-                        <h1 style="font-size: 30px;">
-                            <b>CÔNG TY CỔ PHẦN PHÁT HÀNH SÁCH THÁI NGUYÊN <br/>
-                            TRUNG TÂM ĐÀO TẠO VÀ PHÁT TRIỂN NGUỒN NHÂN LỰC
+                        <h1 style="font-size: 30px; padding-top 15px;">
+                            <br/>
+                            <b>CÔNG TY CỔ PHẦN PHÁT HÀNH SÁCH THÁI NGUYÊN
+                                <br/>
+                                TRUNG TÂM ĐÀO TẠO VÀ PHÁT TRIỂN NGUỒN NHÂN LỰC
                             </b>
                         </h1>
                     </div>
-            </div>
-            <div class="container">
+                </div>
+                <div class="container body_pdf">
                     <div class="id">
-                        <p>ID: <b><span t-field="doc.Custom_ID"/></b></p>
+                        <p>ID khách hàng:
+                            <b>
+                                <span t-field="doc.Custom_ID"/>
+                            </b>
+                        </p>
                     </div>
-                    <div class="row col-12">
-<!--                        <img t-attf-src="data:image/*;base64,{{doc.image_dgis}}"  />-->
-                    </div>
-                <div class="row" >
-                    <table class="table">
-                          <thead class="thead-light">
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Ngón cái</th>
-                              <th scope="col">Ngón trỏ</th>
-                              <th scope="col">Ngón giữa</th>
-                              <th scope="col">Ngón áp út</th>
-                              <th scope="col">Ngón út</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                                <th scope="row">Tay trái</th>
-                                <td ><span t-field="doc.thumb_l"/></td>
-                                <td ><span t-field="doc.index_finger_l"/></td>
-                                <td ><span t-field="doc.middle_finger_l"/></td>
-                                <td ><span t-field="doc.ring_finger_l"/></td>
-                                <td ><span t-field="doc.little_finger_l"/></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Tay phải</th>
-                                <td ><span t-field="doc.thumb_r"/></td>
-                                <td ><span t-field="doc.index_finger_r"/></td>
-                                <td ><span t-field="doc.middle_finger_r"/></td>
-                                <td ><span t-field="doc.ring_finger_r"/></td>
-                                <td ><span t-field="doc.little_finger_r"/></td>
-                            </tr>
-                          </tbody>
+                    <div class="row">
+                        <table style="width: 100%;" border="1" >
+                            <thead>
+                                <tr>
+                                    <th colspan="6" bgcolor="#EEEEEE">Bảng vân tay của khách hàng</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr class="cstr">
+                                    <th scope="row" rowspan="2">Tay trái</th>
+                                    <td>
+                                        <span t-field="doc.thumb_l"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.index_finger_l"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.middle_finger_l"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.ring_finger_l"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.little_finger_l"/>
+                                    </td>
+                                </tr>
+                                <tr class="tr_title" bgcolor="#EEEEEE">
+                                    <th>Ngón cái</th>
+                                    <th>Ngón trỏ</th>
+                                    <th>Ngón giữa</th>
+                                    <th>Ngón áp út</th>
+                                    <th>Ngón út</th>
+                                </tr>
+                                <tr class="cstr">
+                                    <th scope="row" rowspan="2">Tay phải</th>
+                                    <td>
+                                        <span t-field="doc.thumb_r"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.index_finger_r"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.middle_finger_r"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.ring_finger_r"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.little_finger_r"/>
+                                    </td>
+                                </tr>
+                                <tr class="tr_title" bgcolor="#EEEEEE">
+                                    <th>Ngón cái</th>
+                                    <th>Ngón trỏ</th>
+                                    <th>Ngón giữa</th>
+                                    <th>Ngón áp út</th>
+                                    <th>Ngón út</th>
+                                </tr>
+                            </tbody>
                         </table>
+                    </div>
                 </div>
             </div>
         </template>

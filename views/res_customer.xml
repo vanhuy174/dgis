@@ -12,6 +12,7 @@
                     <field name="email"/>
                     <field name="so_dien_thoai"/>
                     <field name="diachi"/>
+                    <field name="status"/>
                 </tree>
             </field>
         </record>

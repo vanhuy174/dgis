@@ -6,8 +6,9 @@ from odoo.http import request
 
 class CustomerForm(http.Controller):
     # mention class name
-    @http.route(['/customer/form'], type='http', auth="public", website=True) # mention a url for redirection. # define the type of controller which in this case is ‘http’. # mention the authentication to be either public or user.
-    def partner_form(self, **post): # create method. this will load the form webpage
+    @http.route(['/customer/form'], type='http', auth="public",
+                website=True)  # mention a url for redirection. # define the type of controller which in this case is ‘http’. # mention the authentication to be either public or user.
+    def partner_form(self, **post):  # create method. this will load the form webpage
         customers = http.request.env['dgis.customer']
         return request.render("dgis.tmp_customer_form", {
             'customers': customers.search([])
@@ -35,7 +36,8 @@ class CustomerForm(http.Controller):
                     'datas': base64.b64encode(attachment),
                 })
                 value = {
-                    'file_phan_tich': attachment_id
+                    'file_phan_tich': attachment_id,
+                    'status': "Đã có KQ"
                 }
             else:
                 attachment_id = Attachments.sudo().create({
@@ -48,7 +50,8 @@ class CustomerForm(http.Controller):
                     'datas': base64.b64encode(attachment),
                 })
                 value = {
-                    'file_phan_tich': attachment_id
+                    'file_phan_tich': attachment_id,
                 }
+
         # print(type(attachment_id))
         return request.render("dgis.tmp_customer_form_success", value)

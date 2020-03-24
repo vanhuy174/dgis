@@ -8,30 +8,30 @@
             <field name="email_from">${object.user_id.email_formatted|safe}</field>
             <field name="email_to">${object.email}</field>
             <field name="subject">Sinh trắc vân tay: ${object.Custom_ID}
-<!--                ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })-->
             </field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-<!--                        % set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order'-->
                         Kính gửi ${object.ho_ten}
                         <br/>
                         Gửi anh/chị bản sinh trắc vân tay
                         <strong>${object.Custom_ID}</strong>
-<!--                        amounting in-->
-<!--                        <strong>${format_amount(object.amount_total, object.currency_id)}</strong>-->
-<!--                        from ${object.company_id.name}.-->
-<!--                        <br/>-->
                         <br/>
-                        Nếu có vấn đề gì hãy liên hệ với chúng tôi
+                        Trung tâm phát triển nguồn nhân lực HTC xin cảm ơn quý khách đã tin tưởng và sử dụng dịch vụ của
+                        chúng tôi
+                        <br/>
+                        Nếu có vấn đề gì hãy liên hệ với chúng tôi!
+                        <br/>
+                        Email: support@htcenter.edu.vn
+                        <br/>
+                        Hotline: 0208 393 99 88
+                        <br/>
+                        Địa chỉ: 65 Đường Hoàng Văn Thụ, Phan Đình Phùng, Thành phố Thái Nguyên, Thái Nguyên
                     </p>
                 </div>
             </field>
             <field name="report_template" ref="report_dgis_customer"/>
-<!--            <field name="report_template" ref="customer_basic_report"/>-->
             <field name="report_name">${(object.Custom_ID)}</field>
-<!--            <field name="lang">${object.lang}</field>-->
-<!--            <field name="auto_delete" eval="True"/>-->
         </record>
     </data>
 </odoo>

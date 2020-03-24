@@ -1,5 +1,7 @@
 import base64
 import uuid
+from email.policy import default
+
 from odoo.modules.module import get_module_resource
 from odoo import tools
 from odoo import api, fields, models, exceptions
@@ -45,6 +47,8 @@ class Customers(models.Model):
     ky_nang = fields.Char(string='Kỹ năng')
     trinh_do = fields.Char(string='Trình độ chuyên môn')
     so_thich = fields.Char(string='Sở thích')
+    status = fields.Char(string='Trạng thái', required=False)
+
     lien_he_ten = fields.Many2one('dgis.customer',string='Họ tên bố')
     lien_sdt = fields.Char(string='Số điện thoại')
     lien_email = fields.Char(string="Email")
@@ -96,13 +100,14 @@ class Customers(models.Model):
         if vals.get('Custom_ID', 'New') == 'New':
             vals['Custom_ID'] = self.my_random_string(8)
         result = super(Customers, self).create(vals)
+        # trang_thai = "Chưa gửi"
         return result
 
     @api.depends("ngay_sinh")
     def get_tuoi(self):
         for rec in self:
             d = datetime.now() - rec.ngay_sinh
-            print((d))
+            # print((d))
             if d.days > 5840:
                 rec.tuoi=True
             else:
@@ -151,10 +156,10 @@ class Customers(models.Model):
         self.ensure_one()
         print(self.ensure_one())
         ir_model_data = self.env['ir.model.data']
-        print(ir_model_data)
+        # print(ir_model_data)
         try:
-            template_id = ir_model_data.get_object_reference('dgis', 'email_template_customer_dgis')[1]
-            print(template_id)
+            template_id = ir_model_data.get_object_reference('dgis', 'email_template_customer')[1]
+            # print(template_id)
         except ValueError:
             template_id = False
         try:
